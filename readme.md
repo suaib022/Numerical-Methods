@@ -13,7 +13,7 @@ The repository is structured to be an educational resource for students, profess
 - **Document** and **implement** numerical methods in C++
 - Provide **theoretical background** and **step-by-step derivations** for each method
 - Offer **clean, efficient, and well-commented C++ code** implementations for each numerical method
-- Build a **reference library** for common computational tasks (root-finding, optimization, linear algebra, ODE/PDE solvers, etc.)
+- Build a **reference library** for common computational tasks (root-finding, linear algebra, ODE solvers, etc.)
 
 ## 🧩 Methods Included
 
