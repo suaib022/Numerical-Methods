@@ -81,8 +81,8 @@ int gauss_elimination(vector<vector<double>> a, vector<double> &root, ostream &o
 
 int main()
 {
-    ifstream fin("inputgauss.txt");
-    ofstream fout("outputgauss.txt");
+    ifstream fin("inputgausselimination.txt");
+    ofstream fout("outputgausselimination.txt");
 
     int T;
     fin >> T;
