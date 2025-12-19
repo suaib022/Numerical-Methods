@@ -75,8 +75,8 @@ int gauss_jordan(vector<vector<double>> a, vector<double> &root, ostream &out)
 
 int main()
 {
-    ifstream fin("inputgauss.txt");
-    ofstream fout("outputgauss.txt");
+    ifstream fin("inputgaussjordan.txt");
+    ofstream fout("outputgaussjordan.txt");
 
     int T;
     fin >> T;
