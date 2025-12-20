@@ -3634,17 +3634,103 @@ Return Result
 ```
 #### Code
 ```cpp
-# Add your code here
+#include <bits/stdc++.h>
+using namespace std;
+
+double f(double x)
+{
+    return 1.0 / (1.0 + x * x);
+}
+
+double exact_integral(double a, double b)
+{
+    return atan(b) - atan(a);
+}
+
+int main()
+{
+    ifstream infile("inputsimpson.txt");
+    ofstream outfile("outputsimpson13.txt");
+
+    if (!infile || !outfile)
+        return 1;
+
+    double a, b;
+    int n;
+    int caseNum = 1;
+
+    while (infile >> a >> b >> n)
+    {
+        outfile << "Case " << caseNum++ << ":" << endl;
+        outfile << "Lower Limit: " << a << ", Upper Limit: " << b << ", Subintervals: " << n << endl;
+
+        if (n % 2 != 0)
+        {
+            outfile << "Error: n must be even for Simpson's 1/3 Rule." << endl;
+            outfile << endl;
+            continue;
+        }
+
+        double h = (b - a) / n;
+        double sum = f(a) + f(b);
+
+        for (int i = 1; i < n; i++)
+        {
+            if (i % 2 == 0)
+            {
+                sum += 2 * f(a + i * h);
+            }
+            else
+            {
+                sum += 4 * f(a + i * h);
+            }
+        }
+
+        double result = (h / 3.0) * sum;
+        double exact = exact_integral(a, b);
+        double error = abs(exact - result);
+
+        outfile << "Calculated Value: " << fixed << setprecision(6) << result << endl;
+        outfile << "Exact Value:      " << fixed << setprecision(6) << exact << endl;
+        outfile << "Absolute Error:   " << scientific << setprecision(4) << error << endl;
+        outfile << endl;
+    }
+
+    infile.close();
+    outfile.close();
+    return 0;
+}
+
 ```
 
 #### Input
 ```
-[Add your input format here]
+0 1 6
+0 6 12
+1 2 18
 ```
 
 #### Output
 ```
-[Add your output format here]
+Case 1:
+Lower Limit: 0, Upper Limit: 1, Subintervals: 6
+Calculated Value: 0.785398
+Exact Value:      0.785398
+Absolute Error:   2.1816e-007
+
+Case 2:
+Lower Limit: 0.0000e+000, Upper Limit: 6.0000e+000, Subintervals: 12
+Calculated Value: 1.403702
+Exact Value:      1.405648
+Absolute Error:   1.9455e-003
+
+Case 3:
+Lower Limit: 1.0000e+000, Upper Limit: 2.0000e+000, Subintervals: 18
+Calculated Value: 0.321751
+Exact Value:      0.321751
+Absolute Error:   1.1895e-008
+
+
 ```
 
 ---
@@ -3705,17 +3791,104 @@ Return Result
 ```
 #### Code
 ```cpp
-# Add your code here
+#include <bits/stdc++.h>
+
+using namespace std;
+
+double f(double x)
+{
+    return 1.0 / (1.0 + x * x);
+}
+
+double exact_integral(double a, double b)
+{
+    return atan(b) - atan(a);
+}
+
+int main()
+{
+    ifstream infile("inputsimpson.txt");
+    ofstream outfile("outputsimpson38.txt");
+
+    if (!infile || !outfile)
+        return 1;
+
+    double a, b;
+    int n;
+    int caseNum = 1;
+
+    while (infile >> a >> b >> n)
+    {
+        outfile << "Case " << caseNum++ << ":" << endl;
+        outfile << "Lower Limit: " << a << ", Upper Limit: " << b << ", Subintervals: " << n << endl;
+
+        if (n % 3 != 0)
+        {
+            outfile << "Error: n must be a multiple of 3 for Simpson's 3/8 Rule." << endl;
+            outfile << endl;
+            continue;
+        }
+
+        double h = (b - a) / n;
+        double sum = f(a) + f(b);
+
+        for (int i = 1; i < n; i++)
+        {
+            if (i % 3 == 0)
+            {
+                sum += 2 * f(a + i * h);
+            }
+            else
+            {
+                sum += 3 * f(a + i * h);
+            }
+        }
+
+        double result = (3.0 * h / 8.0) * sum;
+        double exact = exact_integral(a, b);
+        double error = abs(exact - result);
+
+        outfile << "Calculated Value: " << fixed << setprecision(3) << result << endl;
+        outfile << "Exact Value:      " << fixed << setprecision(3) << exact << endl;
+        outfile << "Absolute Error:   " << scientific << setprecision(3) << error << endl;
+        outfile << endl;
+    }
+
+    infile.close();
+    outfile.close();
+    return 0;
+}
+
 ```
 
 #### Input
 ```
-[Add your input format here]
+0 1 6
+0 6 12
+1 2 18
 ```
 
 #### Output
 ```
-[Add your output format here]
+Case 1:
+Lower Limit: 0, Upper Limit: 1, Subintervals: 6
+Calculated Value: 0.785
+Exact Value:      0.785
+Absolute Error:   2.301e-006
+
+Case 2:
+Lower Limit: 0.000e+000, Upper Limit: 6.000e+000, Subintervals: 12
+Calculated Value: 1.400
+Exact Value:      1.406
+Absolute Error:   6.037e-003
+
+Case 3:
+Lower Limit: 1.000e+000, Upper Limit: 2.000e+000, Subintervals: 18
+Calculated Value: 0.322
+Exact Value:      0.322
+Absolute Error:   2.609e-008
+
+
 ```
 
 ---
@@ -3787,17 +3960,76 @@ Print "Equation: y = " + a0 + " + " + a1 + "x"
 ```
 #### Code
 ```cpp
-# Add your code here
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    ifstream infile("inputlinear.txt");
+    ofstream outfile("outputlinear.txt");
+
+    if (!infile || !outfile)
+        return 1;
+
+    int n;
+    int caseNum = 1;
+
+    while (infile >> n)
+    {
+        vector<double> x(n), y(n);
+        double sum_x = 0, sum_y = 0, sum_xy = 0, sum_x2 = 0;
+
+        for (int i = 0; i < n; i++)
+        {
+            infile >> x[i] >> y[i];
+            sum_x += x[i];
+            sum_y += y[i];
+            sum_xy += x[i] * y[i];
+            sum_x2 += x[i] * x[i];
+        }
+
+        double b = (n * sum_xy - sum_x * sum_y) / (n * sum_x2 - sum_x * sum_x);
+        double a = (sum_y - b * sum_x) / n;
+
+        outfile << "Case " << caseNum++ << ":" << endl;
+        outfile << "Data Points: " << n << endl;
+        outfile << "Linear Fit Equation: y = " << fixed << setprecision(3) << a << " + " << b << "x" << endl;
+        outfile << endl;
+    }
+
+    infile.close();
+    outfile.close();
+    return 0;
+}
+
 ```
 
 #### Input
 ```
-[Add your input format here]
+4
+1 3
+2 5
+3 7
+4 9
+5
+1 2
+2 4.1
+3 5.9
+4 8.1
+5 10
 ```
 
 #### Output
 ```
-[Add your output format here]
+Case 1:
+Data Points: 4
+Linear Fit Equation: y = 1.000 + 2.000x
+
+Case 2:
+Data Points: 5
+Linear Fit Equation: y = 0.020 + 2.000x
+
+
 ```
 
 ---
@@ -3877,17 +4109,147 @@ Return coefficients
 ```
 #### Code
 ```cpp
-# Add your code here
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void gaussianElimination(vector<vector<double>> &a, vector<double> &b, vector<double> &x, int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        int maxRow = i;
+        for (int k = i + 1; k < n; k++)
+        {
+            if (abs(a[k][i]) > abs(a[maxRow][i]))
+            {
+                maxRow = k;
+            }
+        }
+
+        swap(a[i], a[maxRow]);
+        swap(b[i], b[maxRow]);
+
+        for (int k = i + 1; k < n; k++)
+        {
+            double factor = a[k][i] / a[i][i];
+            for (int j = i; j < n; j++)
+            {
+                a[k][j] -= factor * a[i][j];
+            }
+            b[k] -= factor * b[i];
+        }
+    }
+
+    for (int i = n - 1; i >= 0; i--)
+    {
+        double sum = 0;
+        for (int j = i + 1; j < n; j++)
+        {
+            sum += a[i][j] * x[j];
+        }
+        x[i] = (b[i] - sum) / a[i][i];
+    }
+}
+
+int main()
+{
+    ifstream infile("inputpoly.txt");
+    ofstream outfile("outputpoly.txt");
+
+    if (!infile || !outfile)
+        return 1;
+
+    int n;
+    int caseNum = 1;
+
+    while (infile >> n)
+    {
+        vector<double> x(n), y(n);
+        for (int i = 0; i < n; i++)
+        {
+            infile >> x[i] >> y[i];
+        }
+
+        int degree;
+        infile >> degree;
+        int m = degree + 1;
+
+        vector<vector<double>> A(m, vector<double>(m, 0.0));
+        vector<double> B(m, 0.0);
+        vector<double> coeffs(m);
+
+        for (int i = 0; i < m; i++)
+        {
+            for (int j = 0; j < m; j++)
+            {
+                double sum = 0;
+                for (int k = 0; k < n; k++)
+                {
+                    sum += pow(x[k], i + j);
+                }
+                A[i][j] = sum;
+            }
+            double sum = 0;
+            for (int k = 0; k < n; k++)
+            {
+                sum += y[k] * pow(x[k], i);
+            }
+            B[i] = sum;
+        }
+
+        gaussianElimination(A, B, coeffs, m);
+
+        outfile << "Case " << caseNum++ << ":" << endl;
+        outfile << "Data Points: " << n << ", Degree: " << degree << endl;
+        outfile << "Polynomial Fit Equation: y = ";
+        for (int i = 0; i < m; i++)
+        {
+            if (i == 0)
+                outfile << fixed << setprecision(4) << coeffs[i];
+            else if (coeffs[i] >= 0)
+                outfile << " + " << coeffs[i] << "x^" << i;
+            else
+                outfile << " - " << abs(coeffs[i]) << "x^" << i;
+        }
+        outfile << endl;
+        outfile << endl;
+    }
+
+    infile.close();
+    outfile.close();
+    return 0;
+}
+
 ```
 
 #### Input
 ```
-[Add your input format here]
+4
+0 1
+1 1.8
+2 1.3
+3 2.5
+2
+5
+0 1
+1 6
+2 17
+3 34
+4 57
+2
 ```
 
 #### Output
 ```
-[Add your output format here]
+Case 1:
+Data Points: 4, Degree: 2
+Polynomial Fit Equation: y = 1.1500 + 0.1000x^1 + 0.1000x^2
+
+Case 2:
+Data Points: 5, Degree: 2
+Polynomial Fit Equation: y = 1.0000 + 2.0000x^1 + 3.0000x^2
+
+
 ```
 
 ---
@@ -3953,17 +4315,84 @@ Print "Equation: y = " + a + " * e^(" + b + "x)"
 ```
 #### Code
 ```cpp
-# Add your code here
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main()
+{
+    ifstream infile("inputtrans.txt");
+    ofstream outfile("outputtrans.txt");
+
+    if (!infile || !outfile)
+        return 1;
+
+    int n;
+    int caseNum = 1;
+
+    while (infile >> n)
+    {
+        vector<double> x(n), y(n);
+        double sum_x = 0, sum_Y = 0, sum_xY = 0, sum_x2 = 0;
+
+        for (int i = 0; i < n; i++)
+        {
+            infile >> x[i] >> y[i];
+            double Y = log(y[i]);
+            sum_x += x[i];
+            sum_Y += Y;
+            sum_xY += x[i] * Y;
+            sum_x2 += x[i] * x[i];
+        }
+
+        double B = (n * sum_xY - sum_x * sum_Y) / (n * sum_x2 - sum_x * sum_x);
+        double A = (sum_Y - B * sum_x) / n;
+
+        double a = exp(A);
+        double b = B;
+
+        outfile << "Case " << caseNum++ << ":" << endl;
+        outfile << "Data Points: " << n << endl;
+        outfile << "Transcendental Fit Equation (y = ae^bx):" << endl;
+        outfile << "y = " << fixed << setprecision(4) << a << "e^(" << b << "x)" << endl;
+        outfile << endl;
+    }
+
+    infile.close();
+    outfile.close();
+    return 0;
+}
+
 ```
 
 #### Input
 ```
-[Add your input format here]
+5
+1 0.5
+2 2.0
+3 4.5
+4 8.0
+5 12.5
+4
+1 2.7
+2 7.4
+3 20.1
+4 54.6
 ```
 
 #### Output
 ```
-[Add your output format here]
+Case 1:
+Data Points: 5
+Transcendental Fit Equation (y = ae^bx):
+y = 0.3245e^(0.7824x)
+
+Case 2:
+Data Points: 4
+Transcendental Fit Equation (y = ae^bx):
+y = 0.9940e^(1.0020x)
+
+
 ```
 
 ---
@@ -3987,6 +4416,7 @@ Includes:
 ### Input
 
 ```text
+# Give Input in the input file 
 Enter number of equations: 3
 Enter coefficients...
 ```
