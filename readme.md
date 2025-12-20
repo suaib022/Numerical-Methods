@@ -1837,17 +1837,204 @@ BisectionMethod(f, a, b, tolerance, max_iter):
 ```
 #### Code
 ```cpp
-# Add your code here
+#include <bits/stdc++.h>
+using namespace std;
+
+double f(const vector<double> &coeffs, double x)
+{
+    double result = 0.0;
+    int n = coeffs.size();
+    for (int i = 0; i < n; i++)
+    {
+        result += coeffs[i] * pow(x, n - i - 1);
+    }
+    return result;
+}
+
+bool stop(double prev, double curr, double tol)
+{
+    return fabs(prev - curr) < tol;
+}
+
+vector<double> Bisection(const vector<double> &coeffs, double l, double u, double tol, double step)
+{
+    vector<pair<double, double>> intervals;
+    vector<double> roots;
+
+    for (double x = l; x <= u - step; x += step)
+    {
+        double fx = f(coeffs, x);
+        double fx_next = f(coeffs, x + step);
+
+        if (fabs(fx) < 1e-12)
+        {
+            roots.push_back(x);
+            continue;
+        }
+
+        if (fx * fx_next < 0)
+        {
+            intervals.push_back({x, x + step});
+        }
+    }
+
+    for (auto interval : intervals)
+    {
+        double a = interval.first;
+        double b = interval.second;
+        double fa = f(coeffs, a);
+        double fb = f(coeffs, b);
+
+        if (fa * fb > 0)
+            continue;
+
+        double prev = a;
+        double mid = (a + b) / 2.0;
+        int iter = 0;
+
+        while (!stop(prev, mid, tol))
+        {
+            double fmid = f(coeffs, mid);
+            if (fabs(fmid) < 1e-12)
+                break;
+
+            if (fa * fmid < 0)
+            {
+                b = mid;
+                fb = fmid;
+            }
+            else
+            {
+                a = mid;
+                fa = fmid;
+            }
+
+            prev = mid;
+            mid = (a + b) / 2.0;
+            iter++;
+        }
+
+        roots.push_back(mid);
+    }
+
+    sort(roots.begin(), roots.end());
+    roots.erase(unique(roots.begin(), roots.end(), [tol](double a, double b)
+                       { return fabs(a - b) < tol; }),
+                roots.end());
+
+    return roots;
+}
+
+string print_function(const vector<double> &coeffs)
+{
+    stringstream out;
+    int n = coeffs.size();
+    out << "f(x)=";
+    for (int i = 0; i < n; i++)
+    {
+        if (i != 0 && coeffs[i] >= 0)
+            out << "+";
+        out << coeffs[i] << "x^" << n - i - 1 << " ";
+    }
+    return out.str();
+}
+
+int main()
+{
+    ifstream infile("inputbisection.txt");
+    ofstream outfile("outputbisection.txt");
+
+    if (!infile)
+    {
+        return 1;
+    }
+
+    int numProblems;
+    infile >> numProblems;
+
+    for (int p = 0; p < numProblems; p++)
+    {
+        int degree;
+        infile >> degree;
+
+        vector<double> coeffs(degree + 1);
+        for (int i = 0; i <= degree; i++)
+        {
+            infile >> coeffs[i];
+        }
+
+        double l, u, tol, step;
+        infile >> l >> u >> tol >> step;
+
+        outfile << "Problem " << p + 1 << endl;
+        outfile << "Function: " << print_function(coeffs) << endl;
+        outfile << "Interval: [" << l << ", " << u << "], Tolerance: " << tol << ", Step: " << step << endl;
+
+        vector<double> roots = Bisection(coeffs, l, u, tol, step);
+
+        outfile << "Roots found : " << endl;
+        if (!roots.empty())
+        {
+            for (double root : roots)
+            {
+                outfile << fixed << setprecision(6) << root << endl;
+            }
+        }
+        outfile << "\n\n"
+                << endl;
+    }
+
+    infile.close();
+    outfile.close();
+    return 0;
+}
+
 ```
 
 #### Input
 ```
-[Add your input format here]
+3
+2
+1 -4 -10
+5 6 0.0001 0.01
+3
+1 0 -1 -2
+-2 3 0.0001 0.01
+5
+1 -15 85 -225 274 -120
+0 5 0.0001 0.01
 ```
 
 #### Output
 ```
-[Add your output format here]
+Problem 1
+Function: f(x)=1x^2 -4x^1 -10x^0 
+Interval: [5, 6], Tolerance: 0.0001, Step: 0.01
+Roots found : 
+5.741641
+
+
+
+Problem 2
+Function: f(x)=1x^3 +0x^2 -1x^1 -2x^0 
+Interval: [-2.000000, 3.000000], Tolerance: 0.000100, Step: 0.010000
+Roots found : 
+1.521328
+
+
+
+Problem 3
+Function: f(x)=1x^5 -15x^4 +85x^3 -225x^2 +274x^1 -120x^0 
+Interval: [0.000000, 5.000000], Tolerance: 0.000100, Step: 0.010000
+Roots found : 
+0.999922
+1.999922
+3.000000
+4.000000
+
+
+
+
 ```
 
 ---
@@ -1912,17 +2099,178 @@ FalsePositionMethod(f, a, b, tolerance, max_iter):
 ```
 #### Code
 ```cpp
-# Add your code here
+#include <bits/stdc++.h>
+using namespace std;
+
+double f(const vector<double> &coeffs, double x)
+{
+    double result = 0.0;
+    int n = coeffs.size();
+    for (int i = 0; i < n; i++)
+    {
+        result += coeffs[i] * pow(x, n - i - 1);
+    }
+    return result;
+}
+
+bool stop(double prev, double curr, double tol)
+{
+    return fabs(prev - curr) < tol;
+}
+
+vector<double> FalsePosition(const vector<double> &coeffs, double l, double u, double tol, double step)
+{
+    vector<pair<double, double>> intervals;
+    vector<double> roots;
+
+    for (double x = l; x <= u - step; x += step)
+    {
+        double fx = f(coeffs, x);
+        double fx_next = f(coeffs, x + step);
+
+        if (fabs(fx) < 1e-12)
+        {
+            roots.push_back(x);
+            continue;
+        }
+
+        if (fx * fx_next < 0)
+        {
+            intervals.push_back({x, x + step});
+        }
+    }
+
+    for (auto interval : intervals)
+    {
+        double a = interval.first;
+        double b = interval.second;
+        double fa = f(coeffs, a);
+        double fb = f(coeffs, b);
+
+        if (fa * fb > 0)
+            continue;
+
+        double prev = a;
+        double c = a - (fa * (b - a)) / (fb - fa);
+        int iter = 0;
+
+        while (!stop(prev, c, tol))
+        {
+            double fc = f(coeffs, c);
+            if (fabs(fc) < 1e-12)
+                break;
+
+            if (fa * fc < 0)
+            {
+                b = c;
+                fb = fc;
+            }
+            else
+            {
+                a = c;
+                fa = fc;
+            }
+
+            prev = c;
+            c = a - (fa * (b - a)) / (fb - fa);
+            iter++;
+        }
+
+        roots.push_back(c);
+    }
+
+    sort(roots.begin(), roots.end());
+    roots.erase(unique(roots.begin(), roots.end(), [tol](double a, double b)
+                       { return fabs(a - b) < tol; }),
+                roots.end());
+
+    return roots;
+}
+
+string print_function(const vector<double> &coeffs)
+{
+    stringstream out;
+    int n = coeffs.size();
+    out << "f(x)=";
+    for (int i = 0; i < n; i++)
+    {
+        if (i != 0 && coeffs[i] >= 0)
+            out << "+";
+        out << coeffs[i] << "x^" << n - i - 1 << " ";
+    }
+    return out.str();
+}
+
+int main()
+{
+    ifstream infile("inputfalse.txt");
+    ofstream outfile("outputfalse.txt");
+
+    if (!infile)
+    {
+        return 1;
+    }
+
+    int numProblems;
+    infile >> numProblems;
+
+    for (int p = 0; p < numProblems; p++)
+    {
+        int degree;
+        infile >> degree;
+
+        vector<double> coeffs(degree + 1);
+        for (int i = 0; i <= degree; i++)
+        {
+            infile >> coeffs[i];
+        }
+
+        double l, u, tol, step;
+        infile >> l >> u >> tol >> step;
+
+        outfile << "Problem " << p + 1 << endl;
+        outfile << "Function: " << print_function(coeffs) << endl;
+        outfile << "Interval: [" << l << ", " << u << "], Tolerance: " << tol << ", Step: " << step << endl;
+
+        vector<double> roots = FalsePosition(coeffs, l, u, tol, step);
+
+        outfile << "Roots found : " << endl;
+        if (!roots.empty())
+        {
+            for (double root : roots)
+            {
+                outfile << fixed << setprecision(6) << root << endl;
+            }
+        }
+        outfile << "\n\n"
+                << endl;
+    }
+
+    infile.close();
+    outfile.close();
+    return 0;
+}
+
 ```
 
 #### Input
 ```
-[Add your input format here]
+1
+5 1 -15 85 -225 274 -120 0 6 0.0001 0.01
 ```
 
 #### Output
 ```
-[Add your output format here]
+Problem 1
+Function: f(x)=1x^5 -15x^4 +85x^3 -225x^2 +274x^1 -120x^0 
+Interval: [0, 6], Tolerance: 0.0001, Step: 0.01
+Roots found : 
+1.000000
+2.000000
+3.000000
+4.000000
+5.000000
+
 ```
 
 ---
@@ -1976,17 +2324,177 @@ return x2
 ```
 #### Code
 ```cpp
-# Add your code here
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<double> coef;
+int degree;
+
+string polynomial_string(const vector<double> &c, int deg)
+{
+    stringstream ss;
+    bool first = true;
+    for (int i = 0; i <= deg; i++)
+    {
+        if (c[i] == 0)
+            continue;
+        if (!first && c[i] > 0)
+            ss << "+";
+        ss << c[i];
+        if (deg - i > 0)
+            ss << "x";
+        if (deg - i > 1)
+            ss << "^" << deg - i;
+        first = false;
+    }
+    return ss.str();
+}
+
+double f(double x)
+{
+    double value = 0.0;
+    for (int i = 0; i <= degree; i++)
+        value += coef[i] * pow(x, degree - i);
+    return value;
+}
+
+double df(double x)
+{
+    double value = 0.0;
+    for (int i = 0; i < degree; i++)
+        value += coef[i] * (degree - i) * pow(x, degree - i - 1);
+    return value;
+}
+
+vector<pair<double, double>> initial_guess_pairs(double step)
+{
+    double dmax = 0.0;
+    for (int j = 0; j <= degree; j++)
+        dmax = max(dmax, fabs(coef[j] / coef[0]));
+
+    double low = -(1 + dmax);
+    double high = (1 + dmax);
+    vector<pair<double, double>> res;
+
+    while (low < high)
+    {
+        double x1 = low, x2 = low + step;
+        if (f(x1) * f(x2) < 0)
+            res.push_back({x1, x2});
+        low += step;
+    }
+    return res;
+}
+
+double secant_method(double x0, double x1, double tol)
+{
+    double f0 = f(x0);
+    double f1 = f(x1);
+
+    int iter = 0;
+    while (fabs(x1 - x0) >= tol)
+    {
+        if (fabs(f1 - f0) < 1e-12)
+            return NAN;
+        double x2 = x1 - f1 * (x1 - x0) / (f1 - f0);
+
+        x0 = x1;
+        f0 = f1;
+        x1 = x2;
+        f1 = f(x1);
+
+        iter++;
+        if (iter > 1000)
+            break;
+    }
+    return x1;
+}
+
+int main()
+{
+    ifstream fin("inputsecant.txt");
+    ofstream fout("outputsecant.txt");
+
+    int T;
+    fin >> T; 
+
+    for (int t = 1; t <= T; t++)
+    {
+        fin >> degree;
+        coef.resize(degree + 1);
+        for (int i = 0; i <= degree; i++)
+            fin >> coef[i];
+
+        fout << "Polynomial " << t << ":\n";
+        fout << "f(x) = " << polynomial_string(coef, degree) << "\n";
+
+ 
+        vector<double> dcoef(degree);
+        for (int i = 0; i < degree; i++)
+            dcoef[i] = coef[i] * (degree - i);
+        fout << "f'(x) = " << polynomial_string(dcoef, degree - 1) << "\n";
+
+        vector<pair<double, double>> guesses = initial_guess_pairs(0.45);
+        double tol = 1e-6;
+        vector<double> roots;
+
+        for (auto &p : guesses)
+        {
+            double root = secant_method(p.first, p.second, tol);
+            if (isnan(root))
+                continue;
+
+            bool unique = true;
+            for (double r : roots)
+                if (fabs(root - r) < tol)
+                    unique = false;
+
+            if (unique)
+                roots.push_back(root);
+        }
+
+        fout << "Roots:\n";
+        for (double r : roots)
+            fout << r << "\n";
+        fout << "\n\n";
+    }
+
+    fin.close();
+    fout.close();
+    return 0;
+}
+
 ```
 
 #### Input
 ```
-[Add your input format here]
+2
+3
+1 -6 11 -6
+2
+1 -3 2
 ```
 
 #### Output
 ```
-[Add your output format here]
+Polynomial 1:
+f(x) = 1x^3-6x^2+11x-6
+f'(x) = 3x^2-12x+11
+Roots:
+1
+2
+3
+
+
+Polynomial 2:
+f(x) = 1x^2-3x+2
+f'(x) = 2x-3
+Roots:
+1
+2
+
+
+
 ```
 
 ---
@@ -2044,17 +2552,183 @@ return x1
 ```
 #### Code
 ```cpp
-# Add your code here
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<double> coef;
+int degree;
+
+string polynomial_string(const vector<double> &c, int deg)
+{
+    stringstream ss;
+    bool first = true;
+    for (int i = 0; i <= deg; i++)
+    {
+        if (c[i] == 0)
+            continue;
+        if (!first && c[i] > 0)
+            ss << "+";
+        ss << c[i];
+        if (deg - i > 0)
+            ss << "x";
+        if (deg - i > 1)
+            ss << "^" << deg - i;
+        first = false;
+    }
+    return ss.str();
+}
+
+double f(double x)
+{
+    double value = 0.0;
+    for (int i = 0; i <= degree; i++)
+        value += coef[i] * pow(x, degree - i);
+    return value;
+}
+
+double df(double x)
+{
+    double value = 0.0;
+    for (int i = 0; i < degree; i++)
+        value += coef[i] * (degree - i) * pow(x, degree - i - 1);
+    return value;
+}
+
+vector<double> rangess(double step)
+{
+    double dmax = 0.0;
+    for (int j = 0; j <= degree; j++)
+        dmax = max(dmax, fabs(coef[j] / coef[0]));
+
+    double low = -(1 + dmax);
+    double high = (1 + dmax);
+    vector<double> res;
+
+    while (low < high)
+    {
+        if (f(low) * f(low + step) < 0)
+        {
+            if (fabs(f(low)) < fabs(f(low + step)))
+                res.push_back(low);
+            else
+                res.push_back(low + step);
+        }
+        low += step;
+    }
+    return res;
+}
+
+double newton_raphson(double initial_guess, double tol)
+{
+    double x0 = initial_guess;
+    double fx = f(x0);
+    if (fabs(fx) < 1e-12)
+        return x0;
+
+    double dfx = df(x0);
+    if (fabs(dfx) <= 1e-12)
+        return NAN;
+
+    double x1 = x0 - fx / dfx;
+
+    while (fabs(x1 - x0) >= tol)
+    {
+        x0 = x1;
+        fx = f(x0);
+        if (fabs(fx) < 1e-12)
+            return x0;
+        dfx = df(x0);
+        if (fabs(dfx) <= 1e-12)
+            return NAN;
+        x1 = x0 - fx / dfx;
+    }
+    return x1;
+}
+
+int main()
+{
+    ifstream fin("inputnewtraph.txt");
+    ofstream fout("outputnewtraph.txt");
+
+    int T;
+    fin >> T;
+
+    for (int t = 1; t <= T; t++)
+    {
+        fin >> degree;
+        coef.resize(degree + 1);
+        for (int i = 0; i <= degree; i++)
+            fin >> coef[i];
+
+        fout << "Polynomial " << t << ":\n";
+        fout << "f(x) = " << polynomial_string(coef, degree) << "\n";
+
+        vector<double> dcoef(degree);
+        for (int i = 0; i < degree; i++)
+            dcoef[i] = coef[i] * (degree - i);
+        fout << "f'(x) = " << polynomial_string(dcoef, degree - 1) << "\n";
+
+        vector<double> initial_guesses = rangess(0.45);
+        double tol = 1e-6;
+        vector<double> roots;
+
+        for (double guess : initial_guesses)
+        {
+            double root = newton_raphson(guess, tol);
+            if (isnan(root))
+                continue;
+
+            bool unique = true;
+            for (double r : roots)
+                if (fabs(root - r) < tol)
+                    unique = false;
+
+            if (unique)
+                roots.push_back(root);
+        }
+
+        fout << "Roots:\n";
+        for (double r : roots)
+            fout << r << "\n";
+
+        fout << "\n\n";
+    }
+
+    fin.close();
+    fout.close();
+    return 0;
+}
+
 ```
 
 #### Input
 ```
-[Add your input format here]
+2
+3
+1 -6 11 -6
+2
+1 -3 2
 ```
 
 #### Output
 ```
-[Add your output format here]
+Polynomial 1:
+f(x) = 1x^3-6x^2+11x-6
+f'(x) = 3x^2-12x+11
+Roots:
+1
+2
+3
+
+
+Polynomial 2:
+f(x) = 1x^2-3x+2
+f'(x) = 2x-3
+Roots:
+1
+2
+
+
 ```
 
 ---
@@ -2116,17 +2790,146 @@ function newton_forward(x[], y[][], n, value):
 ```
 #### Code
 ```cpp
-# Add your code here
+#include <bits/stdc++.h>
+
+using namespace std;
+
+double calculateU(double u, int n)
+{
+    double temp = u;
+    for (int i = 1; i < n; i++)
+        temp = temp * (u + i);
+    return temp;
+}
+
+double fact(int n)
+{
+    double f = 1;
+    for (int i = 2; i <= n; i++)
+        f *= i;
+    return f;
+}
+
+int main()
+{
+    ifstream infile("inputbackward.txt");
+    ofstream outfile("outputbackward.txt");
+
+    if (!infile || !outfile)
+    {
+        return 1;
+    }
+
+    int n;
+    int caseNum = 1;
+
+    while (infile >> n)
+    {
+        vector<double> x(n);
+        vector<vector<double>> y(n, vector<double>(n));
+
+        for (int i = 0; i < n; i++)
+        {
+            infile >> x[i] >> y[i][0];
+        }
+
+        for (int i = 1; i < n; i++)
+        {
+            for (int j = n - 1; j >= i; j--)
+                y[j][i] = y[j][i - 1] - y[j - 1][i - 1];
+        }
+
+        outfile << "Case " << caseNum++ << ":" << endl;
+        outfile << "Backward Difference Table:" << endl;
+        for (int i = 0; i < n; i++)
+        {
+            outfile << setw(10) << x[i];
+            for (int j = 0; j <= i; j++)
+                outfile << setw(10) << fixed << setprecision(4) << y[i][j];
+            outfile << endl;
+        }
+
+        double value;
+        infile >> value;
+
+        double sum = y[n - 1][0];
+        double u = (value - x[n - 1]) / (x[1] - x[0]);
+        double last_term = 0.0;
+
+        for (int i = 1; i < n; i++)
+        {
+            last_term = (calculateU(u, i) * y[n - 1][i]) / fact(i);
+            sum = sum + last_term;
+        }
+
+        outfile << endl
+                << "Value at " << value << " is " << fixed << setprecision(6) << sum << endl;
+
+        if (sum != 0)
+        {
+            double relative_error = abs(last_term / sum) * 100.0;
+            outfile << "Approximate Relative Error: " << relative_error << "%" << endl;
+        }
+        else
+        {
+            outfile << "Approximate Error: " << abs(last_term) << " (Cannot calculate percentage relative error as sum is 0)" << endl;
+        }
+
+        outfile << endl
+                << endl;
+    }
+
+    infile.close();
+    outfile.close();
+    return 0;
+}
+
 ```
 
 #### Input
 ```
-[Add your input format here]
+5
+35 31
+45 73
+55 124
+65 159
+75 190
+70
+4
+0 1
+1 2
+2 1
+3 10
+2.5
+
 ```
 
 #### Output
 ```
-[Add your output format here]
+Case 1:
+Backward Difference Table:
+        35   31.0000
+   45.0000   73.0000   42.0000
+   55.0000  124.0000   51.0000    9.0000
+   65.0000  159.0000   35.0000  -16.0000  -25.0000
+   75.0000  190.0000   31.0000   -4.0000   12.0000   37.0000
+
+Value at 70.0000 is 172.804688
+Approximate Relative Error: 0.836385%
+
+
+Case 2:
+Backward Difference Table:
+  0.000000    1.0000
+    1.0000    2.0000    1.0000
+    2.0000    1.0000   -1.0000   -2.0000
+    3.0000   10.0000    9.0000   10.0000   12.0000
+
+Value at 2.5000 is 3.500000
+Approximate Relative Error: 21.428571%
+
+
+
 ```
 
 ---
