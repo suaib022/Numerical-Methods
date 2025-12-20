@@ -213,6 +213,22 @@ for i = n to 1 step -1:
 PRINT "Unique Solution: ", x
 STOP
 ```
+#### Code
+```cpp
+# Add your code here
+```
+
+#### Input
+```
+[Add your input format here]
+```
+
+#### Output
+```
+[Add your output format here]
+```
+
+---
 
 **Implementation**
 
