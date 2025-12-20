@@ -2888,45 +2888,45 @@ int main()
 
 #### Input
 ```
-5
-35 31
-45 73
-55 124
-65 159
-75 190
-70
 4
-0 1
-1 2
-2 1
-3 10
-2.5
+45 0.7071
+50 0.7660
+55 0.8192
+60 0.8660
+46
+5
+1891 46
+1901 66
+1911 81
+1921 93
+1931 101
+1895
+
 
 ```
 
 #### Output
 ```
 Case 1:
-Backward Difference Table:
-        35   31.0000
-   45.0000   73.0000   42.0000
-   55.0000  124.0000   51.0000    9.0000
-   65.0000  159.0000   35.0000  -16.0000  -25.0000
-   75.0000  190.0000   31.0000   -4.0000   12.0000   37.0000
+Difference Table:
+        45    0.7071    0.0589   -0.0057   -0.0007
+   50.0000    0.7660    0.0532   -0.0064
+   55.0000    0.8192    0.0468
+   60.0000    0.8660
 
-Value at 70.0000 is 172.804688
-Approximate Relative Error: 0.836385%
-
+Value at 46.0000 is 0.719
 
 Case 2:
-Backward Difference Table:
-  0.000000    1.0000
-    1.0000    2.0000    1.0000
-    2.0000    1.0000   -1.0000   -2.0000
-    3.0000   10.0000    9.0000   10.0000   12.0000
+Difference Table:
+  1891.000   46.0000   20.0000   -5.0000    2.0000   -3.0000
+ 1901.0000   66.0000   15.0000   -3.0000   -1.0000
+ 1911.0000   81.0000   12.0000   -4.0000
+ 1921.0000   93.0000    8.0000
+ 1931.0000  101.0000
 
-Value at 2.5000 is 3.500000
-Approximate Relative Error: 21.428571%
+Value at 1895.0000 is 54.853
+
+
 
 
 
@@ -2986,17 +2986,146 @@ function newton_backward(x[], y[][], n, value):
 ```
 #### Code
 ```cpp
-# Add your code here
+#include <bits/stdc++.h>
+
+using namespace std;
+
+double calculateU(double u, int n)
+{
+    double temp = u;
+    for (int i = 1; i < n; i++)
+        temp = temp * (u + i);
+    return temp;
+}
+
+double fact(int n)
+{
+    double f = 1;
+    for (int i = 2; i <= n; i++)
+        f *= i;
+    return f;
+}
+
+int main()
+{
+    ifstream infile("inputbackward.txt");
+    ofstream outfile("outputbackward.txt");
+
+    if (!infile || !outfile)
+    {
+        return 1;
+    }
+
+    int n;
+    int caseNum = 1;
+
+    while (infile >> n)
+    {
+        vector<double> x(n);
+        vector<vector<double>> y(n, vector<double>(n));
+
+        for (int i = 0; i < n; i++)
+        {
+            infile >> x[i] >> y[i][0];
+        }
+
+        for (int i = 1; i < n; i++)
+        {
+            for (int j = n - 1; j >= i; j--)
+                y[j][i] = y[j][i - 1] - y[j - 1][i - 1];
+        }
+
+        outfile << "Case " << caseNum++ << ":" << endl;
+        outfile << "Backward Difference Table:" << endl;
+        for (int i = 0; i < n; i++)
+        {
+            outfile << setw(10) << x[i];
+            for (int j = 0; j <= i; j++)
+                outfile << setw(10) << fixed << setprecision(4) << y[i][j];
+            outfile << endl;
+        }
+
+        double value;
+        infile >> value;
+
+        double sum = y[n - 1][0];
+        double u = (value - x[n - 1]) / (x[1] - x[0]);
+        double last_term = 0.0;
+
+        for (int i = 1; i < n; i++)
+        {
+            last_term = (calculateU(u, i) * y[n - 1][i]) / fact(i);
+            sum = sum + last_term;
+        }
+
+        outfile << endl
+                << "Value at " << value << " is " << fixed << setprecision(6) << sum << endl;
+
+        if (sum != 0)
+        {
+            double relative_error = abs(last_term / sum) * 100.0;
+            outfile << "Approximate Relative Error: " << relative_error << "%" << endl;
+        }
+        else
+        {
+            outfile << "Approximate Error: " << abs(last_term) << " (Cannot calculate percentage relative error as sum is 0)" << endl;
+        }
+
+        outfile << endl
+                << endl;
+    }
+
+    infile.close();
+    outfile.close();
+    return 0;
+}
+
 ```
 
 #### Input
 ```
-[Add your input format here]
+5
+35 31
+45 73
+55 124
+65 159
+75 190
+70
+4
+0 1
+1 2
+2 1
+3 10
+2.5
+
 ```
 
 #### Output
 ```
-[Add your output format here]
+Case 1:
+Backward Difference Table:
+        35   31.0000
+   45.0000   73.0000   42.0000
+   55.0000  124.0000   51.0000    9.0000
+   65.0000  159.0000   35.0000  -16.0000  -25.0000
+   75.0000  190.0000   31.0000   -4.0000   12.0000   37.0000
+
+Value at 70.0000 is 172.804688
+Approximate Relative Error: 0.836385%
+
+
+Case 2:
+Backward Difference Table:
+  0.000000    1.0000
+    1.0000    2.0000    1.0000
+    2.0000    1.0000   -1.0000   -2.0000
+    3.0000   10.0000    9.0000   10.0000   12.0000
+
+Value at 2.5000 is 3.500000
+Approximate Relative Error: 21.428571%
+
+
+
 ```
 
 ---
@@ -3017,7 +3146,7 @@ Includes:
 ---
 
 
-## E. Solution of Differential Equations
+## D. Numerical Differentiation
 
 <a id="newton-forward-differentiation"></a>
 ### 1. Newton Forward Differentiation
@@ -3083,17 +3212,192 @@ END
 ```
 #### Code
 ```cpp
-# Add your code here
+#include <bits/stdc++.h>
+using namespace std;
+typedef vector<double> Poly;
+
+Poly multiply(const Poly &p, double constant)
+{
+    Poly res(p.size() + 1, 0.0);
+    for (size_t i = 0; i < p.size(); i++)
+    {
+        res[i + 1] += p[i];
+        res[i] += constant * p[i];
+    }
+    return res;
+}
+
+Poly differentiate(const Poly &p)
+{
+    if (p.size() <= 1)
+        return {0.0};
+    Poly res;
+    for (size_t i = 1; i < p.size(); i++)
+    {
+        res.push_back(p[i] * i);
+    }
+    return res;
+}
+
+double evaluate(const Poly &p, double x)
+{
+    double res = 0;
+    double x_pow = 1;
+    for (double c : p)
+    {
+        res += c * x_pow;
+        x_pow *= x;
+    }
+    return res;
+}
+
+double fact(int n)
+{
+    double f = 1;
+    for (int i = 2; i <= n; i++)
+        f *= i;
+    return f;
+}
+
+int main()
+{
+    ifstream infile("inputdiff.txt");
+    ofstream outfile("outputdiff.txt");
+
+    if (!infile || !outfile)
+    {
+        return 1;
+    }
+
+    int n;
+    int caseNum = 1;
+
+    while (infile >> n)
+    {
+        vector<double> x(n);
+        vector<vector<double>> y(n, vector<double>(n));
+
+        for (int i = 0; i < n; i++)
+        {
+            infile >> x[i] >> y[i][0];
+        }
+        for (int i = 1; i < n; i++)
+        {
+            for (int j = 0; j < n - i; j++)
+                y[j][i] = y[j + 1][i - 1] - y[j][i - 1];
+        }
+
+        outfile << "Case " << caseNum++ << ":" << endl;
+        outfile << "Forward Difference Table:" << endl;
+        for (int i = 0; i < n; i++)
+        {
+            outfile << setw(10) << x[i];
+            for (int j = 0; j < n - i; j++)
+                outfile << setw(10) << fixed << setprecision(4) << y[i][j];
+            outfile << endl;
+        }
+
+        double value;
+        int order;
+        infile >> value >> order;
+
+        double h = x[1] - x[0];
+        double u = (value - x[0]) / h;
+
+        double derivative_val = 0;
+        Poly P = {1.0};
+
+        for (int k = 0; k < n; k++)
+        {
+            if (k > 0)
+            {
+                P = multiply(P, -(double)(k - 1));
+            }
+
+            if (k >= order)
+            {
+                Poly P_deriv = P;
+                for (int m = 0; m < order; m++)
+                {
+                    P_deriv = differentiate(P_deriv);
+                }
+
+                double term_val = evaluate(P_deriv, u);
+                derivative_val += (y[0][k] / fact(k)) * term_val;
+            }
+        }
+
+        derivative_val /= pow(h, order);
+
+        outfile << endl
+                << "For x = " << value << ":" << endl;
+        outfile << "Derivative Order: " << order << endl;
+        outfile << "Result: " << fixed << setprecision(3) << derivative_val << endl;
+        outfile << endl
+                << endl;
+    }
+    infile.close();
+    outfile.close();
+
+    return 0;
+}
+
 ```
 
 #### Input
 ```
-[Add your input format here]
+7
+1.0 2.7183
+1.2 3.3201
+1.4 4.0552
+1.6 4.9530
+1.8 6.0496
+2.0 7.3891
+2.2 9.0250
+1.2 1
+5
+0 0
+1 1
+2 8
+3 27
+4 64
+2 2
+
 ```
 
 #### Output
 ```
-[Add your output format here]
+Case 1:
+Forward Difference Table:
+         1    2.7183    0.6018    0.1333    0.0294    0.0067    0.0013    0.0001
+    1.2000    3.3201    0.7351    0.1627    0.0361    0.0080    0.0014
+    1.4000    4.0552    0.8978    0.1988    0.0441    0.0094
+    1.6000    4.9530    1.0966    0.2429    0.0535
+    1.8000    6.0496    1.3395    0.2964
+    2.0000    7.3891    1.6359
+    2.2000    9.0250
+
+For x = 1.2000:
+Derivative Order: 1
+Result: 3.320
+
+
+Case 2:
+Forward Difference Table:
+     0.000    0.0000    1.0000    6.0000    6.0000    0.0000
+    1.0000    1.0000    7.0000   12.0000    6.0000
+    2.0000    8.0000   19.0000   18.0000
+    3.0000   27.0000   37.0000
+    4.0000   64.0000
+
+For x = 2.0000:
+Derivative Order: 2
+Result: 12.000
+
+
+
+
+
 ```
 
 ---
@@ -3111,6 +3415,9 @@ Includes:
 - [Numerical Differentiation - Wikipedia](https://en.wikipedia.org/wiki/Numerical_differentiation)
 - [Newton's Forward Difference Formula - MathWorld](https://mathworld.wolfram.com/ForwardDifference.html)
 - Numerical Methods for Engineers - Chapra & Canale
+
+  
+## E. Solution of Differential Equations
 
 <a id="runge-kutta"></a>
 ### 2. Runge Kutta Method
@@ -3149,17 +3456,118 @@ function solve_rk4(x0, y0, xn, h):
 ```
 #### Code
 ```cpp
-# Add your code here
+#include <bits/stdc++.h>
+using namespace std;
+
+double f(double x, double y)
+{
+    return x + y;
+}
+
+int main()
+{
+    ifstream infile("inputrk.txt");
+    ofstream outfile("outputrk.txt");
+
+    if (!infile || !outfile)
+    {
+        return 1;
+    }
+
+    double x0, y0, xn, h;
+    int caseNum = 1;
+
+    outfile << fixed << setprecision(3);
+
+    while (infile >> x0 >> y0 >> xn >> h)
+    {
+        outfile << "Case " << caseNum++ << ":" << endl;
+        outfile << "Initial values: x0 = " << x0 << ", y0 = " << y0 << endl;
+        outfile << "Target x: " << xn << endl;
+        outfile << "Step size: " << h << endl;
+        outfile << "List of x and y values:" << endl;
+        outfile << "x\t\ty" << endl;
+
+        double y = y0;
+        double x = x0;
+        outfile << x << "\t\t" << y << endl;
+        int n = (int)round((xn - x0) / h);
+
+        for (int i = 0; i < n; i++)
+        {
+            double k1 = h * f(x, y);
+            double k2 = h * f(x + h / 2.0, y + k1 / 2.0);
+            double k3 = h * f(x + h / 2.0, y + k2 / 2.0);
+            double k4 = h * f(x + h, y + k3);
+
+            double k = (k1 + 2 * k2 + 2 * k3 + k4) / 6.0;
+
+            y = y + k;
+            x = x + h;
+
+            outfile << x << "\t\t" << y << endl;
+        }
+
+        outfile << "Value of y at x = " << xn << " is " << y << endl;
+        outfile << endl;
+    }
+
+    infile.close();
+    outfile.close();
+    return 0;
+}
+
 ```
 
 #### Input
 ```
-[Add your input format here]
+0 1 0.2 0.1
+0 1 0.5 0.1
+1 2 1.5 0.1
 ```
 
 #### Output
 ```
-[Add your output format here]
+Case 1:
+Initial values: x0 = 0.000, y0 = 1.000
+Target x: 0.200
+Step size: 0.100
+List of x and y values:
+x		y
+0.000		1.000
+0.100		1.110
+0.200		1.243
+Value of y at x = 0.200 is 1.243
+
+Case 2:
+Initial values: x0 = 0.000, y0 = 1.000
+Target x: 0.500
+Step size: 0.100
+List of x and y values:
+x		y
+0.000		1.000
+0.100		1.110
+0.200		1.243
+0.300		1.400
+0.400		1.584
+0.500		1.797
+Value of y at x = 0.500 is 1.797
+
+Case 3:
+Initial values: x0 = 1.000, y0 = 2.000
+Target x: 1.500
+Step size: 0.100
+List of x and y values:
+x		y
+1.000		2.000
+1.100		2.321
+1.200		2.686
+1.300		3.099
+1.400		3.567
+1.500		4.095
+Value of y at x = 1.500 is 4.095
+
+
 ```
 
 ---
