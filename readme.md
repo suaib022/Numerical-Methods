@@ -9,27 +9,27 @@
 ## Project Structure
 
 ```text
-nm/
+Numerical Methods
 ├── readme.md
 │
-├── A. Solution of Linear Equations/
-│   ├── Gauss Elimination/
-│   ├── Gauss Jordan/
-│   ├── LU Decomposition/
-│   ├── Matrix Inverse/
-│   └── Iterative Methods/
-│       ├── Jacobi/
-│       └── GaussSeidel/
+├── A. Solution of Linear Equations
+│   ├── Gauss Elimination
+│   ├── Gauss Jordan
+│   ├── LU Decomposition
+│   ├── Matrix Inverse
+│   └── Iterative Methods
+│       ├── Jacobi
+│       └── GaussSeidel
 │
-├── B. Solution of Non-Linear Equations/
-│   ├── Bisection/
-│   ├── False_Position/
-│   ├── Secant/
-│   └── Newton_Raphson/
+├── B. Solution of Non-Linear Equations
+│   ├── Bisection
+│   ├── False_Position
+│   ├── Secant
+│   └── Newton_Raphson
 │
-├── C. Interpolation and Approximation/
-│   ├── Newton Forward/
-│   └── Newton Backward/
+├── C. Interpolation and Approximation
+│   ├── Newton Forward
+│   └── Newton Backward
 │
 ├── D. Numerical Differentiation/
 │   ├── Newton Forward Differentiation/
@@ -37,14 +37,14 @@ nm/
 ├── E. Solution of Differential Equations/
 │   └── Runge Kutta/
 │
-├── F. Numerical Integration/
-│   ├── Simpson 1 by 3/
-│   └── Simpson 3 by 8/
+├── F. Numerical Integration
+│   ├── Simpson 1 by 3
+│   └── Simpson 3 by 8
 │
-└── G. Curve Fitting/
-    ├── Linear/
-    ├── Polynomial/
-    └── Transcendental/
+└── G. Curve Fitting
+    ├── Linear
+    ├── Polynomial
+    └── Transcendental
 ```
 
 ---
