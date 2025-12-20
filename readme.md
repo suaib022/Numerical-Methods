@@ -342,6 +342,22 @@ if rank = n:
 else:
     return ("Infinite solutions", M)
 ```
+#### Code
+```cpp
+# Add your code here
+```
+
+#### Input
+```
+[Add your input format here]
+```
+
+#### Output
+```
+[Add your output format here]
+```
+
+---
 
 **Implementation**
 
@@ -426,6 +442,22 @@ function solve_LU(Matrix A, Vector b):
         
     return x
 ```
+#### Code
+```cpp
+# Add your code here
+```
+
+#### Input
+```
+[Add your input format here]
+```
+
+#### Output
+```
+[Add your output format here]
+```
+
+---
 
 **Implementation**
 
@@ -480,6 +512,22 @@ For k from 1 to N:
     
     x_old = x_new // Update for next cycle
 ```
+#### Code
+```cpp
+# Add your code here
+```
+
+#### Input
+```
+[Add your input format here]
+```
+
+#### Output
+```
+[Add your output format here]
+```
+
+---
 
 **Implementation**
 
@@ -538,6 +586,22 @@ For k from 1 to N:
         Print "Converged"
         Return x
 ```
+#### Code
+```cpp
+# Add your code here
+```
+
+#### Input
+```
+[Add your input format here]
+```
+
+#### Output
+```
+[Add your output format here]
+```
+
+---
 
 **Implementation**
 
@@ -603,6 +667,22 @@ BisectionMethod(f, a, b, tolerance, max_iter):
 
   Step 3: Return (a + b) / 2 as the approximate root
 ```
+#### Code
+```cpp
+# Add your code here
+```
+
+#### Input
+```
+[Add your input format here]
+```
+
+#### Output
+```
+[Add your output format here]
+```
+
+---
 
 **Implementation**
 
@@ -662,6 +742,22 @@ FalsePositionMethod(f, a, b, tolerance, max_iter):
                 a = x0
   Step 3: Return x0 as the approximate root
 ```
+#### Code
+```cpp
+# Add your code here
+```
+
+#### Input
+```
+[Add your input format here]
+```
+
+#### Output
+```
+[Add your output format here]
+```
+
+---
 
 **Implementation**
 
@@ -710,6 +806,22 @@ for i = 1 to max_iter:
     x1 = x2
 return x2
 ```
+#### Code
+```cpp
+# Add your code here
+```
+
+#### Input
+```
+[Add your input format here]
+```
+
+#### Output
+```
+[Add your output format here]
+```
+
+---
 
 **Implementation**
 
@@ -762,6 +874,22 @@ for i = 1 to max_iter:
     x0 = x1
 return x1
 ```
+#### Code
+```cpp
+# Add your code here
+```
+
+#### Input
+```
+[Add your input format here]
+```
+
+#### Output
+```
+[Add your output format here]
+```
+
+---
 
 **Implementation**
 
@@ -818,6 +946,22 @@ function newton_forward(x[], y[][], n, value):
 
     return sum
 ```
+#### Code
+```cpp
+# Add your code here
+```
+
+#### Input
+```
+[Add your input format here]
+```
+
+#### Output
+```
+[Add your output format here]
+```
+
+---
 
 **Implementation**
 
@@ -869,6 +1013,22 @@ function newton_backward(x[], y[][], n, value):
 
     return sum
 ```
+#### Code
+```cpp
+# Add your code here
+```
+
+#### Input
+```
+[Add your input format here]
+```
+
+#### Output
+```
+[Add your output format here]
+```
+
+---
 
 **Implementation**
 
@@ -950,6 +1110,22 @@ Print derivative
 
 END
 ```
+#### Code
+```cpp
+# Add your code here
+```
+
+#### Input
+```
+[Add your input format here]
+```
+
+#### Output
+```
+[Add your output format here]
+```
+
+---
 
 **Implementation**
 
@@ -1000,6 +1176,22 @@ function solve_rk4(x0, y0, xn, h):
         
     return y
 ```
+#### Code
+```cpp
+# Add your code here
+```
+
+#### Input
+```
+[Add your input format here]
+```
+
+#### Output
+```
+[Add your output format here]
+```
+
+---
 
 **Implementation**
 
@@ -1061,7 +1253,22 @@ For i from 1 to n-1:
 Result = sum * (h / 3)
 Return Result
 ```
+#### Code
+```cpp
+# Add your code here
+```
 
+#### Input
+```
+[Add your input format here]
+```
+
+#### Output
+```
+[Add your output format here]
+```
+
+---
 **Implementation**
 
 👉 [View Code & Files](https://github.com/suaib022/nm-demo/tree/main/F.%20Numerical%20Integration/Simpson%201%20by%203)
@@ -1117,7 +1324,22 @@ For i from 1 to n-1:
 Result = sum * (3 * h / 8)
 Return Result
 ```
+#### Code
+```cpp
+# Add your code here
+```
 
+#### Input
+```
+[Add your input format here]
+```
+
+#### Output
+```
+[Add your output format here]
+```
+
+---
 **Implementation**
 
 👉 [View Code & Files](https://github.com/suaib022/nm-demo/tree/main/F.%20Numerical%20Integration/Simpson%203%20by%208)
@@ -1184,7 +1406,22 @@ a0 = (sum_y / n) - (a1 * (sum_x / n))
 
 Print "Equation: y = " + a0 + " + " + a1 + "x"
 ```
+#### Code
+```cpp
+# Add your code here
+```
 
+#### Input
+```
+[Add your input format here]
+```
+
+#### Output
+```
+[Add your output format here]
+```
+
+---
 **Implementation**
 
 👉 [View Code & Files](https://github.com/suaib022/nm-demo/tree/main/G.%20Curve%20Fitting/Linear)
@@ -1259,7 +1496,22 @@ For i from 0 to m:
 coefficients = GaussianElimination(B, C)
 Return coefficients
 ```
+#### Code
+```cpp
+# Add your code here
+```
 
+#### Input
+```
+[Add your input format here]
+```
+
+#### Output
+```
+[Add your output format here]
+```
+
+---
 
 **Implementation**
 
@@ -1320,7 +1572,22 @@ a = exp(A0) // Inverse transform
 
 Print "Equation: y = " + a + " * e^(" + b + "x)"
 ```
+#### Code
+```cpp
+# Add your code here
+```
 
+#### Input
+```
+[Add your input format here]
+```
+
+#### Output
+```
+[Add your output format here]
+```
+
+---
 **Implementation**
 
 👉 [View Code & Files](https://github.com/suaib022/nm-demo/tree/main/G.%20Curve%20Fitting/Transcendental)
