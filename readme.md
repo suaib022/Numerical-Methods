@@ -1,8 +1,8 @@
 # Numerical Methods Console Application
 
-## Overview
+## 👋 Welcome to FindX
 
-This project is a comprehensive collection of numerical methods implemented in C++. It covers fundamental algorithms for solving linear and non-linear equations, interpolation, numerical differentiation and integration, differential equations, and curve fitting techniques.
+**FindX** is a Numerical Methods laboratory project for the course **CSE 2208 — Numerical Method**. It organizes the numerical techniques taught in the course into a clear and structured repository, combining **mathematical theory**, **algorithmic steps**, and **C++ implementations**. The project is designed for academic learning, and quick revision, with a focus on clarity, correctness, and practical application.
 
 ---
 
@@ -31,6 +31,9 @@ nm/
 │   ├── Newton Forward/
 │   └── Newton Backward/
 │
+├── D. Numerical Differentiation/
+│   ├── Newton Forward Differentiation/
+│
 ├── E. Solution of Differential Equations/
 │   ├── Newton Forward Differentiation/
 │   └── Runge Kutta/
@@ -45,6 +48,32 @@ nm/
     └── Transcendental/
 ```
 
+---
+
+## Environment Setup
+
+To run the numerical method implementations in this repository, you will need a standard C++ development environment. All code is written in **Standard C++ (C++11 or later)** to ensure compatibility.
+
+### Prerequisites
+* **C++ Compiler:** G++ (via MinGW for Windows, or GCC for Linux/macOS).
+* **Code Editor/IDE:** Visual Studio Code (recommended), CLion, or Dev-C++.
+
+You can compile and run the programs using any IDE or directly from the terminal.
+
+**Using Terminal (Command Line):**
+1.  Navigate to the directory of the specific method you want to run.
+2.  Compile the source code:
+    ```bash
+    g++ main.cpp -o run
+    ```
+3.  Execute the program:
+    * **Windows:** `run.exe`
+    * **Linux/Mac:** `./run`
+
+**Using VS Code:**
+* Open the folder containing the source code.
+* Ensure the C/C++ extension is installed.
+* Press `Ctrl + Shift + B` (Build) or use the "Run Code" button if you have Code Runner installed.
 ---
 
 ## Table of Contents
@@ -66,9 +95,12 @@ nm/
 1.  [Newton Forward Interpolation](#newton-forward)
 2.  [Newton Backward Interpolation](#newton-backward)
 
-### E. Solution of Differential Equations
+### D. Numerical Differentiation
 1.  [Newton Forward Differentiation](#newton-forward-differentiation)
-2.  [Runge Kutta Method](#runge-kutta)
+
+
+### E. Solution of Differential Equations
+1.  [Runge Kutta Method](#runge-kutta)
 
 ### F. Numerical Integration
 1.  [Simpson 1 by 3](#simpson-1-by-3)
@@ -1289,21 +1321,6 @@ Includes:
 
 ---
 
-## Environment Setup
-
-### Requirements
-- C++ Compiler (GCC / MinGW / Clang)
-- C++11 or later
-
-### Compile & Run
-
-```bash
-g++ code.cpp -o run
-./run
-```
-
----
-
 ## Sample Run
 
 ### Input
@@ -1326,30 +1343,86 @@ z = 3.0
 
 ## Contribution
 
-### Our Team Contribution
+### Team Details
 
 | Full Name | GitHub Username | Roll Number |
-|-----------|-----------------|-------------|
-| MD SUAIB AHMED SAFI | [suaib022](https://github.com/suaib022) | 2207115 |
-| ASHRAFUR RAHMAN NIHAD | [ARN101](https://github.com/ARN101) | 2207116 |
-| DADHICHI SAREKR SHAYON | [Dadhichi-Sarker-Shayon](https://github.com/Dadhichi-Sarker-Shayon) | 2207118 |
-
-- **Member 1:** Method implementation & testing
-- **Member 2:** Mathematical theory & PDFs
-- **Member 3:** Repository structure & documentation
+| :--- | :--- | :--- |
+| **MD SUAIB AHMED SAFI** | [@suaib022](https://github.com/suaib022) | 2207115 |
+| **ASHRAFUR RAHMAN NIHAD** | [@ARN101](https://github.com/ARN101) | 2207116 |
+| **DADHICHI SAREKR SHAYON** | [@Dadhichi-Sarker-Shayon](https://github.com/Dadhichi-Sarker-Shayon) | 2207118 |
 
 ---
 
-## Future Contributions
+### Individual Technical Contributions
 
-We welcome contributions! 🙌
+**MD SUAIB AHMED SAFI:**
+Responsible for implementing the LU Decomposition Method, Runge–Kutta Method, and Matrix Inverse. Additionally, he handled the logic for Newton Forward Interpolation, Newton Backward Interpolation, and Linear Equation solvers.
 
-**How to contribute:**
-1. Fork the repository
-2. Create a new branch
-3. Add method / optimize code / improve documentation
-4. Submit a pull request
+**ASHRAFUR RAHMAN NIHAD:**
+Developed the code for the Jacobi & Gauss–Seidel Method, Simpson’s 1/3 Rule, and Simpson’s 3/8 Rule. He also contributed the implementations for Newton Forward Differentiation, Polynomial Equation, and Transcendental Equation.
 
+**DADHICHI SAREKR SHAYON:**
+Focused on the direct linear algebra methods including the Gauss Elimination Method and Gauss Jordan Method. His contributions also cover root-finding algorithms such as the Bisection Method, False Position Method, Secant Method, and Newton Raphson Method.
+
+
+---
+
+## 🤝 Future Contribution Guidelines
+
+We welcome contributions to improve this project! Whether you want to fix a bug, add a new numerical method, or improve documentation, here is how you can help.
+
+### How to Contribute
+
+1.  **Fork the Repository**
+    - Click the "Fork" button at the top right of this page to create your own copy of the repository.
+
+2.  **Clone Your Fork**
+    ```bash
+    git clone [https://github.com/your-username/your-repo-name.git](https://github.com/your-username/your-repo-name.git)
+    cd your-repo-name
+    ```
+
+3.  **Create a New Branch**
+    - Always create a separate branch for your changes. Do not push directly to `main`.
+    ```bash
+    git checkout -b feature/your-feature-name
+    # OR for bug fixes
+    git checkout -b fix/bug-name
+    ```
+
+4.  **Make Your Changes**
+    - Ensure your code follows the existing style (indentation, variable naming, comments).
+    - If adding a new method, please include a sample input/output test case in the comments.
+
+5.  **Commit Your Changes**
+    - Write clear, concise commit messages.
+    ```bash
+    git add .
+    git commit -m "Added implementation for [Method Name]"
+    ```
+
+6.  **Push to Your Fork**
+    ```bash
+    git push origin feature/your-feature-name
+    ```
+
+7.  **Submit a Pull Request (PR)**
+    - Go to the original repository and click **"Compare & pull request"**.
+    - Provide a brief description of what you added or fixed.
+    - Tag the maintainers for review.
+
+### Code Standards
+- **Language:** C++ (Standard 11 or higher) / Python (if applicable).
+- **Documentation:** Every function must have comments explaining the parameters and return values.
+- **Testing:** Verify that your algorithm works on edge cases (e.g., division by zero checks).
+
+---
+
+### 🐛 Reporting Issues
+Found a bug? Please open an **Issue** with the following details:
+- The method causing the error.
+- Input data used.
+- Expected vs. Actual output.
 ---
 
 ## References
