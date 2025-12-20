@@ -1112,17 +1112,220 @@ function solve_LU(Matrix A, Vector b):
 ```
 #### Code
 ```cpp
-# Add your code here
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    ifstream infile("inputlu.txt");
+    ofstream outfile("outputlu.txt");
+
+    if (!infile || !outfile)
+    {
+        return 1;
+    }
+
+    int n;
+    int caseNum = 1;
+
+    while (infile >> n)
+    {
+        vector<vector<double>> a(n, vector<double>(n));
+        vector<double> b(n);
+
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < n; j++)
+                infile >> a[i][j];
+            infile >> b[i];
+        }
+
+        vector<vector<double>> l(n, vector<double>(n, 0));
+        vector<vector<double>> u(n, vector<double>(n, 0));
+
+        for (int i = 0; i < n; i++)
+        {
+            for (int k = i; k < n; k++)
+            {
+                double sum = 0;
+                for (int j = 0; j < i; j++)
+                    sum += l[i][j] * u[j][k];
+                u[i][k] = a[i][k] - sum;
+            }
+
+            for (int k = i; k < n; k++)
+            {
+                if (i == k)
+                    l[i][i] = 1;
+                else
+                {
+                    double sum = 0;
+                    for (int j = 0; j < i; j++)
+                        sum += l[k][j] * u[j][i];
+
+                    if (abs(u[i][i]) > 1e-9)
+                        l[k][i] = (a[k][i] - sum) / u[i][i];
+                    else
+                        l[k][i] = 0;
+                }
+            }
+        }
+
+        outfile << "Case " << caseNum++ << ":" << endl;
+        outfile << "Lower Triangular Matrix :" << endl;
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < n; j++)
+                outfile << fixed << setprecision(3) << setw(8) << l[i][j] << " ";
+            outfile << endl;
+        }
+        outfile << endl;
+
+        outfile << "Upper Triangular Matrix :" << endl;
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < n; j++)
+                outfile << fixed << setprecision(3) << setw(8) << u[i][j] << " ";
+            outfile << endl;
+        }
+
+        vector<double> y(n);
+        for (int i = 0; i < n; i++)
+        {
+            double sum = 0;
+            for (int j = 0; j < i; j++)
+                sum += l[i][j] * y[j];
+            y[i] = b[i] - sum;
+        }
+
+        bool unique = true;
+        bool inconsistent = false;
+
+        for (int i = 0; i < n; i++)
+        {
+            if (abs(u[i][i]) < 1e-9)
+            {
+                unique = false;
+                bool allZero = true;
+                for (int j = i + 1; j < n; j++)
+                {
+                    if (abs(u[i][j]) > 1e-9)
+                    {
+                        allZero = false;
+                        break;
+                    }
+                }
+
+                if (allZero && abs(y[i]) > 1e-9)
+                {
+                    inconsistent = true;
+                    break;
+                }
+            }
+        }
+
+        if (unique)
+        {
+            vector<double> x(n);
+            for (int i = n - 1; i >= 0; i--)
+            {
+                double sum = 0;
+                for (int j = i + 1; j < n; j++)
+                    sum += u[i][j] * x[j];
+                x[i] = (y[i] - sum) / u[i][i];
+            }
+
+            outfile << "\nSolution:" << endl;
+            for (int i = 0; i < n; i++)
+                outfile << "x" << i + 1 << " = " << fixed << setprecision(4) << x[i] << endl;
+
+            outfile << "\nThe system has a unique solution." << endl;
+        }
+        else
+        {
+            if (inconsistent)
+                outfile << "\nThe system has no solution." << endl;
+            else
+                outfile << "\nThe system has infinite solutions." << endl;
+        }
+        outfile << endl
+                << endl;
+    }
+
+    infile.close();
+    outfile.close();
+    return 0;
+}
+
 ```
 
 #### Input
 ```
-[Add your input format here]
+3
+3 -0.1 -0.2 7.85
+0.1 7 -0.3 -19.3
+0.3 -0.2 10 71.4
+3
+1 1 1 6
+1 1 1 7
+1 2 3 14
+3
+1 1 1 6
+2 2 2 12
+1 2 3 14
+
 ```
 
 #### Output
 ```
-[Add your output format here]
+Case 1:
+Lower Triangular Matrix :
+   1.000    0.000    0.000 
+   0.033    1.000    0.000 
+   0.100   -0.027    1.000 
+
+Upper Triangular Matrix :
+   3.000   -0.100   -0.200 
+   0.000    7.003   -0.293 
+   0.000    0.000   10.012 
+
+Solution:
+x1 = 3.0000
+x2 = -2.5000
+x3 = 7.0000
+
+The system has a unique solution.
+
+
+Case 2:
+Lower Triangular Matrix :
+   1.000    0.000    0.000 
+   1.000    1.000    0.000 
+   1.000    0.000    1.000 
+
+Upper Triangular Matrix :
+   1.000    1.000    1.000 
+   0.000    0.000    0.000 
+   0.000    0.000    2.000 
+
+The system has no solution.
+
+
+Case 3:
+Lower Triangular Matrix :
+   1.000    0.000    0.000 
+   2.000    1.000    0.000 
+   1.000    0.000    1.000 
+
+Upper Triangular Matrix :
+   1.000    1.000    1.000 
+   0.000    0.000    0.000 
+   0.000    0.000    2.000 
+
+The system has infinite solutions.
+
+
+
 ```
 
 ---
@@ -1182,17 +1385,172 @@ For k from 1 to N:
 ```
 #### Code
 ```cpp
-# Add your code here
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    ifstream infile("inputjacobi.txt");
+    ofstream outfile("outputjacobi.txt");
+
+    if (!infile || !outfile)
+        return 1;
+    int n;
+    int caseNum = 1;
+
+    while (infile >> n)
+    {
+        vector<vector<double>> a(n, vector<double>(n));
+        vector<double> b(n);
+        vector<double> x(n, 0.0);
+        vector<double> new_x(n);
+
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                infile >> a[i][j];
+            }
+            infile >> b[i];
+        }
+
+        double tol;
+        int max_iter;
+        infile >> tol >> max_iter;
+
+        outfile << "Case " << caseNum++ << ":" << endl;
+        outfile << "Iteration\t";
+        for (int i = 0; i < n; i++)
+            outfile << "x" << i + 1 << "\t\t";
+        outfile << "Error" << endl;
+        outfile << endl;
+
+        int iter = 0;
+        double error = 0.0;
+
+        do
+        {
+            error = 0.0;
+            for (int i = 0; i < n; i++)
+            {
+                double sum = 0.0;
+                for (int j = 0; j < n; j++)
+                {
+                    if (j != i)
+                    {
+                        sum += a[i][j] * x[j];
+                    }
+                }
+                new_x[i] = (b[i] - sum) / a[i][i];
+                double diff = abs(new_x[i] - x[i]);
+                if (diff > error)
+                {
+                    error = diff;
+                }
+            }
+
+            x = new_x;
+            iter++;
+
+            outfile << iter << "\t\t";
+            for (int i = 0; i < n; i++)
+                outfile << fixed << setprecision(3) << x[i] << "\t";
+            outfile << scientific << setprecision(3) << error << endl;
+
+        } while (error > tol && iter < max_iter);
+
+        outfile << endl;
+        if (iter < max_iter)
+        {
+            outfile << "Converged in " << iter << " iterations." << endl;
+        }
+        else
+        {
+            outfile << "Maximum iterations reached." << endl;
+        }
+
+        outfile << "Solution:" << endl;
+        for (int i = 0; i < n; i++)
+        {
+            outfile << "x" << i + 1 << " = " << fixed << setprecision(3) << x[i] << endl;
+        }
+        outfile << endl;
+    }
+
+    infile.close();
+    outfile.close();
+    return 0;
+}
+
 ```
 
 #### Input
 ```
-[Add your input format here]
+3
+3 -0.1 -0.2 7.85
+0.1 7 -0.3 -19.3
+0.3 -0.2 10 71.4
+0.00001
+100
+3
+4 1 1 2
+1 5 2 -6
+1 2 4 -4
+0.0001
+100
+
 ```
 
 #### Output
 ```
-[Add your output format here]
+Case 1:
+Iteration	x1		x2		x3		Error
+
+1		2.617	-2.757	7.140	7.140e+000
+2		3.001	-2.489	7.006	3.841e-001
+3		3.001	-2.500	7.000	1.121e-002
+4		3.000	-2.500	7.000	7.839e-004
+5		3.000	-2.500	7.000	2.385e-005
+6		3.000	-2.500	7.000	1.266e-006
+
+Converged in 6 iterations.
+Solution:
+x1 = 3.000
+x2 = -2.500
+x3 = 7.000
+
+Case 2:
+Iteration	x1		x2		x3		Error
+
+1		0.500	-1.200	-1.000	1.200e+000
+2		1.050	-0.900	-0.525	5.500e-001
+3		0.856	-1.200	-0.812	3.000e-001
+4		1.003	-1.046	-0.614	1.984e-001
+5		0.915	-1.155	-0.728	1.136e-001
+6		0.971	-1.092	-0.651	7.639e-002
+7		0.936	-1.134	-0.697	4.542e-002
+8		0.958	-1.108	-0.667	2.955e-002
+9		0.944	-1.125	-0.685	1.801e-002
+10		0.952	-1.115	-0.674	1.151e-002
+11		0.947	-1.121	-0.681	7.107e-003
+12		0.950	-1.117	-0.676	4.496e-003
+13		0.948	-1.120	-0.679	2.796e-003
+14		0.950	-1.118	-0.677	1.760e-003
+15		0.949	-1.119	-0.678	1.099e-003
+16		0.949	-1.118	-0.678	6.899e-004
+17		0.949	-1.119	-0.678	4.313e-004
+18		0.949	-1.119	-0.678	2.705e-004
+19		0.949	-1.119	-0.678	1.693e-004
+20		0.949	-1.119	-0.678	1.061e-004
+21		0.949	-1.119	-0.678	6.643e-005
+
+Converged in 21 iterations.
+Solution:
+x1 = 0.949
+x2 = -1.119
+x3 = -0.678
+
+
 ```
 
 ---
@@ -1256,17 +1614,159 @@ For k from 1 to N:
 ```
 #### Code
 ```cpp
-# Add your code here
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    ifstream infile("inputseidel.txt");
+    ofstream outfile("outputseidel.txt");
+
+    if (!infile)
+        return 1;
+    if (!outfile)
+        return 1;
+
+    int n;
+    int caseNum = 1;
+
+    while (infile >> n)
+    {
+        vector<vector<double>> a(n, vector<double>(n));
+        vector<double> b(n);
+        vector<double> x(n, 0.0);
+
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                infile >> a[i][j];
+            }
+            infile >> b[i];
+        }
+
+        double tol;
+        int max_iter;
+        infile >> tol >> max_iter;
+
+        outfile << "Case " << caseNum++ << ":" << endl;
+        outfile << "Iteration\t";
+        for (int i = 0; i < n; i++)
+            outfile << "x" << i + 1 << "\t\t";
+        outfile << "Error" << endl;
+        outfile << endl;
+
+        int iter = 0;
+        double error = 0.0;
+
+        do
+        {
+            error = 0.0;
+            for (int i = 0; i < n; i++)
+            {
+                double sum = 0.0;
+                for (int j = 0; j < n; j++)
+                {
+                    if (j != i)
+                    {
+                        sum += a[i][j] * x[j];
+                    }
+                }
+                double new_val = (b[i] - sum) / a[i][i];
+                double diff = abs(new_val - x[i]);
+                if (diff > error)
+                {
+                    error = diff;
+                }
+                x[i] = new_val;
+            }
+
+            iter++;
+
+            outfile << iter << "\t\t";
+            for (int i = 0; i < n; i++)
+                outfile << fixed << setprecision(6) << x[i] << "\t";
+            outfile << scientific << setprecision(4) << error << endl;
+
+        } while (error > tol && iter < max_iter);
+
+        outfile << endl;
+        if (iter < max_iter)
+        {
+            outfile << "Converged in " << iter << " iterations." << endl;
+        }
+        else
+        {
+            outfile << "Maximum iterations reached." << endl;
+        }
+
+        outfile << "Solution:" << endl;
+        for (int i = 0; i < n; i++)
+        {
+            outfile << "x" << i + 1 << " = " << fixed << setprecision(3) << x[i] << endl;
+        }
+        outfile << endl;
+    }
+
+    infile.close();
+    outfile.close();
+    return 0;
+}
+
 ```
 
 #### Input
 ```
-[Add your input format here]
+3
+3 -0.1 -0.2 7.85
+0.1 7 -0.3 -19.3
+0.3 -0.2 10 71.4
+0.00001
+100
+3
+4 1 1 2
+1 5 2 -6
+1 2 4 -4
+0.0001
+100
+
 ```
 
 #### Output
 ```
-[Add your output format here]
+Case 1:
+Iteration	x1		x2		x3		Error
+
+1		2.616667	-2.794524	7.005610	7.0056e+000
+2		2.990557	-2.499625	7.000291	3.7389e-001
+3		3.000032	-2.499988	6.999999	9.4754e-003
+4		3.000000	-2.500000	7.000000	3.1545e-005
+5		3.000000	-2.500000	7.000000	3.5441e-007
+
+Converged in 5 iterations.
+Solution:
+x1 = 3.000
+x2 = -2.500
+x3 = 7.000
+
+Case 2:
+Iteration	x1		x2		x3		Error
+
+1		0.500000	-1.300000	-0.475000	1.3000e+000
+2		0.943750	-1.198750	-0.636563	4.4375e-001
+3		0.958828	-1.137141	-0.671137	6.1609e-002
+4		0.952069	-1.121959	-0.677038	1.5181e-002
+5		0.949749	-1.119135	-0.677870	2.8244e-003
+6		0.949251	-1.118702	-0.677962	4.9806e-004
+7		0.949166	-1.118649	-0.677967	8.5190e-005
+
+Converged in 7 iterations.
+Solution:
+x1 = 0.949
+x2 = -1.119
+x3 = -0.678
+
+
 ```
 
 ---
