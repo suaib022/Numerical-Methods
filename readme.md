@@ -35,7 +35,6 @@ nm/
 │   ├── Newton Forward Differentiation/
 │
 ├── E. Solution of Differential Equations/
-│   ├── Newton Forward Differentiation/
 │   └── Runge Kutta/
 │
 ├── F. Numerical Integration/
