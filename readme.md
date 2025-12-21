@@ -1606,7 +1606,7 @@ x3 = -0.678
 
 **Folder**
 
-👉 [View Code & Files](https://github.com/suaib022/Numerical-Methods/tree/main/A.%20Solution%20of%20Linear%20Equations/Iterative%20Methods/Jacobi)
+👉 [View Code & Files](https://github.com/suaib022/Numerical-Methods/tree/main/A.%20Solution%20of%20Linear%20Equations/Iterative%20Methods%20/Jacobi/Jacobi)
 
 Includes:
 - C++ source code
@@ -1830,7 +1830,7 @@ x3 = -0.678
 
 **Folder**
 
-👉 [View Code & Files](https://github.com/suaib022/Numerical-Methods/tree/main/A.%20Solution%20of%20Linear%20Equations/Iterative%20Methods/GaussSeidel)
+👉 [View Code & Files](https://github.com/suaib022/Numerical-Methods/tree/main/A.%20Solution%20of%20Linear%20Equations/Iterative%20Methods%20/GaussSeidel)
 
 Includes:
 - C++ source code
@@ -3517,7 +3517,7 @@ Result: 12.000
 
 **Folder**
 
-👉 [View Code & Files](https://github.com/suaib022/Numerical-Methods/tree/main/D.%20Numerical%20Differentiation/Newton%20Forward%20Differentiation)
+👉 [View Code & Files](https://github.com/suaib022/Numerical-Methods/tree/main/D.%20Numerical%20Differentiation%20/Newton%20Forward%20Differentiation)
 
 Includes:
 - C++ source code
@@ -4180,7 +4180,7 @@ Linear Fit Equation: y = 0.020 + 2.000x
 ---
 **Folder**
 
-👉 [View Code & Files](https://github.com/suaib022/Numerical-Methods/tree/main/G.%20Curve%20Fitting/Linear)
+👉 [View Code & Files](https://github.com/suaib022/Numerical-Methods/tree/main/G.%20Curve%20Fitting%20/Linear)
 
 Includes:
 - C++ source code
@@ -4409,7 +4409,7 @@ Polynomial Fit Equation: y = 1.0000 + 2.0000x^1 + 3.0000x^2
 
 **Folder**
 
-👉 [View Code & Files](https://github.com/suaib022/Numerical-Methods/tree/main/G.%20Curve%20Fitting/Polynomial)
+👉 [View Code & Files](https://github.com/suaib022/Numerical-Methods/tree/main/G.%20Curve%20Fitting%20/Polynomial)
 
 Includes:
 - C++ source code
@@ -4559,7 +4559,7 @@ y = 0.9940e^(1.0020x)
 ---
 **Folder**
 
-👉 [View Code & Files](https://github.com/suaib022/Numerical-Methods/tree/main/G.%20Curve%20Fitting/Transcendental)
+👉 [View Code & Files](https://github.com/suaib022/Numerical-Methods/tree/main/G.%20Curve%20Fitting%20/Transcendental)
 
 Includes:
 - C++ source code
