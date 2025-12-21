@@ -6,49 +6,6 @@
 
 ---
 
-## Project Structure
-
-```text
-Numerical Methods
-├── readme.md
-│
-├── A. Solution of Linear Equations
-│   ├── Gauss Elimination
-│   ├── Gauss Jordan
-│   ├── LU Decomposition
-│   ├── Matrix Inverse
-│   └── Iterative Methods
-│       ├── Jacobi
-│       └── GaussSeidel
-│
-├── B. Solution of Non-Linear Equations
-│   ├── Bisection
-│   ├── False_Position
-│   ├── Secant
-│   └── Newton_Raphson
-│
-├── C. Interpolation and Approximation
-│   ├── Newton Forward
-│   └── Newton Backward
-│
-├── D. Numerical Differentiation/
-│   ├── Newton Forward Differentiation/
-│
-├── E. Solution of Differential Equations/
-│   └── Runge Kutta/
-│
-├── F. Numerical Integration
-│   ├── Simpson 1 by 3
-│   └── Simpson 3 by 8
-│
-└── G. Curve Fitting
-    ├── Linear
-    ├── Polynomial
-    └── Transcendental
-```
-
----
-
 ## Environment Setup
 
 To run the numerical method implementations in this repository, you will need a standard C++ development environment. All code is written in **Standard C++ (C++11 or later)** to ensure compatibility.
