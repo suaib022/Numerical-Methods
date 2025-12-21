@@ -1,51 +1,10 @@
 # Numerical Methods Console Application
 
-## 👋 Welcome to FindX
+## Welcome to FindX
 
 **FindX** is a Numerical Methods laboratory project for the course **CSE 2208 — Numerical Method**. It organizes the numerical techniques taught in the course into a clear and structured repository, combining **mathematical theory**, **algorithmic steps**, and **C++ implementations**. The project is designed for academic learning, and quick revision, with a focus on clarity, correctness, and practical application.
 
 ---
-
-## Project Structure
-
-```text
-nm/
-├── readme.md
-│
-├── A. Solution of Linear Equations/
-│   ├── Gauss Elimination/
-│   ├── Gauss Jordan/
-│   ├── LU Decomposition/
-│   ├── Matrix Inverse/
-│   └── Iterative Methods/
-│       ├── Jacobi/
-│       └── GaussSeidel/
-│
-├── B. Solution of Non-Linear Equations/
-│   ├── Bisection/
-│   ├── False_Position/
-│   ├── Secant/
-│   └── Newton_Raphson/
-│
-├── C. Interpolation and Approximation/
-│   ├── Newton Forward/
-│   └── Newton Backward/
-│
-├── D. Numerical Differentiation/
-│   ├── Newton Forward Differentiation/
-│
-├── E. Solution of Differential Equations/
-│   └── Runge Kutta/
-│
-├── F. Numerical Integration/
-│   ├── Simpson 1 by 3/
-│   └── Simpson 3 by 8/
-│
-└── G. Curve Fitting/
-    ├── Linear/
-    ├── Polynomial/
-    └── Transcendental/
-```
 
 ---
 
@@ -69,10 +28,6 @@ You can compile and run the programs using any IDE or directly from the terminal
     * **Windows:** `run.exe`
     * **Linux/Mac:** `./run`
 
-**Using VS Code:**
-* Open the folder containing the source code.
-* Ensure the C/C++ extension is installed.
-* Press `Ctrl + Shift + B` (Build) or use the "Run Code" button if you have Code Runner installed.
 ---
 
 ## Table of Contents
@@ -382,7 +337,7 @@ int main()
 
 #### Output
 ```
-System 1 (Gauss-Jordan)
+System 1 
 Initial Augmented Matrix:
 2.000000 1.000000 -1.000000 8.000000 
 -3.000000 -1.000000 2.000000 -11.000000 
@@ -409,7 +364,7 @@ x2 = 3.000000
 x3 = -1.000000
 
 
-System 2 (Gauss-Jordan)
+System 2 
 Initial Augmented Matrix:
 1.000000 1.000000 1.000000 6.000000 
 0.000000 2.000000 5.000000 -4.000000 
@@ -436,7 +391,7 @@ x2 = 3.000000
 x3 = -2.000000
 
 
-System 3 (Gauss-Jordan)
+System 3 
 Initial Augmented Matrix:
 4.000000 -2.000000 1.000000 9.000000 
 1.000000 1.000000 1.000000 6.000000 
@@ -463,7 +418,7 @@ x2 = 0.545455
 x3 = 3.909091
 
 
-System 4 (Gauss-Jordan)
+System 4 
 Initial Augmented Matrix:
 1.000000 -2.000000 3.000000 4.000000 
 2.000000 -4.000000 6.000000 10.000000 
@@ -482,7 +437,7 @@ After pivot normalization in row 2:
 No Solution
 
 
-System 5 (Gauss-Jordan)
+System 5 
 Initial Augmented Matrix:
 1.000000 1.000000 1.000000 3.000000 
 2.000000 2.000000 2.000000 7.000000 
@@ -501,7 +456,7 @@ After pivot normalization in row 2:
 No Solution
 
 
-System 6 (Gauss-Jordan)
+System 6 
 Initial Augmented Matrix:
 3.000000 -6.000000 9.000000 12.000000 
 1.000000 -2.000000 3.000000 5.000000 
@@ -520,7 +475,7 @@ After pivot normalization in row 2:
 No Solution
 
 
-System 7 (Gauss-Jordan)
+System 7 
 Initial Augmented Matrix:
 1.000000 2.000000 -1.000000 3.000000 
 2.000000 4.000000 -2.000000 6.000000 
@@ -534,7 +489,7 @@ After pivot normalization in row 1:
 Infinite Solutions
 
 
-System 8 (Gauss-Jordan)
+System 8 
 Initial Augmented Matrix:
 2.000000 1.000000 -3.000000 4.000000 
 4.000000 2.000000 -6.000000 8.000000 
@@ -548,7 +503,7 @@ After pivot normalization in row 1:
 Infinite Solutions
 
 
-System 9 (Gauss-Jordan)
+System 9 
 Initial Augmented Matrix:
 1.000000 -1.000000 2.000000 3.000000 
 2.000000 -2.000000 4.000000 6.000000 
@@ -569,7 +524,7 @@ Infinite Solutions
 
 **Implementation**
 
-👉 [View Code & Files](https://github.com/suaib022/nm-demo/tree/main/A.%20Solution%20of%20Linear%20Equations/Gauss%20Elimination)
+[View Code & Files](https://github.com/suaib022/nm-demo/tree/main/A.%20Solution%20of%20Linear%20Equations/Gauss%20Elimination)
 
 Includes:
 - C++ source code
@@ -1029,7 +984,7 @@ Infinite Solutions
 
 **Implementation**
 
-👉 [View Code & Files](https://github.com/suaib022/nm-demo/tree/main/A.%20Solution%20of%20Linear%20Equations/Gauss%20Jordan)
+[View Code & Files](https://github.com/suaib022/nm-demo/tree/main/A.%20Solution%20of%20Linear%20Equations/Gauss%20Jordan)
 
 Includes:
 - C++ source code
@@ -1332,7 +1287,7 @@ The system has infinite solutions.
 
 **Implementation**
 
-👉 [View Code & Files](https://github.com/suaib022/nm-demo/tree/main/A.%20Solution%20of%20Linear%20Equations/LU%20Decomposition)
+[View Code & Files](https://github.com/suaib022/nm-demo/tree/main/A.%20Solution%20of%20Linear%20Equations/LU%20Decomposition)
 
 Includes:
 - C++ source code
@@ -1557,7 +1512,7 @@ x3 = -0.678
 
 **Implementation**
 
-👉 [View Code & Files](https://github.com/suaib022/nm-demo/tree/main/A.%20Solution%20of%20Linear%20Equations/Iterative%20Methods/Jacobi)
+[View Code & Files](https://github.com/suaib022/nm-demo/tree/main/A.%20Solution%20of%20Linear%20Equations/Iterative%20Methods/Jacobi)
 
 Includes:
 - C++ source code
@@ -1773,7 +1728,7 @@ x3 = -0.678
 
 **Implementation**
 
-👉 [View Code & Files](https://github.com/suaib022/nm-demo/tree/main/A.%20Solution%20of%20Linear%20Equations/Iterative%20Methods/GaussSeidel)
+[View Code & Files](https://github.com/suaib022/nm-demo/tree/main/A.%20Solution%20of%20Linear%20Equations/Iterative%20Methods/GaussSeidel)
 
 Includes:
 - C++ source code
@@ -2041,7 +1996,7 @@ Roots found :
 
 **Implementation**
 
-👉 [View Code & Files](https://github.com/suaib022/nm-demo/tree/main/B.%20Solution%20of%20Non-Linear%20Equations/Bisection)
+[View Code & Files](https://github.com/suaib022/nm-demo/tree/main/B.%20Solution%20of%20Non-Linear%20Equations/Bisection)
 
 Includes:
 - C++ source code
@@ -2277,7 +2232,7 @@ Roots found :
 
 **Implementation**
 
-👉 [View Code & Files](https://github.com/suaib022/nm-demo/tree/main/B.%20Solution%20of%20Non-Linear%20Equations/False_Position)
+[View Code & Files](https://github.com/suaib022/nm-demo/tree/main/B.%20Solution%20of%20Non-Linear%20Equations/False_Position)
 
 Includes:
 - C++ source code
@@ -2501,7 +2456,7 @@ Roots:
 
 **Implementation**
 
-👉 [View Code & Files](https://github.com/suaib022/nm-demo/tree/main/B.%20Solution%20of%20Non-Linear%20Equations/Secant)
+[View Code & Files](https://github.com/suaib022/nm-demo/tree/main/B.%20Solution%20of%20Non-Linear%20Equations/Secant)
 
 Includes:
 - C++ source code
@@ -2735,7 +2690,7 @@ Roots:
 
 **Implementation**
 
-👉 [View Code & Files](https://github.com/suaib022/nm-demo/tree/main/B.%20Solution%20of%20Non-Linear%20Equations/Newton_Raphson)
+[View Code & Files](https://github.com/suaib022/nm-demo/tree/main/B.%20Solution%20of%20Non-Linear%20Equations/Newton_Raphson)
 
 Includes:
 - C++ source code
@@ -2936,7 +2891,7 @@ Value at 1895.0000 is 54.853
 
 **Implementation**
 
-👉 [View Code & Files](https://github.com/suaib022/nm-demo/tree/main/C.%20Interpolation%20and%20Approximation/Newton%20Forward)
+[View Code & Files](https://github.com/suaib022/nm-demo/tree/main/C.%20Interpolation%20and%20Approximation/Newton%20Forward)
 
 Includes:
 - C++ source code
@@ -3132,7 +3087,7 @@ Approximate Relative Error: 21.428571%
 
 **Implementation**
 
-👉 [View Code & Files](https://github.com/suaib022/nm-demo/tree/main/C.%20Interpolation%20and%20Approximation/Newton%20Backward)
+[View Code & Files](https://github.com/suaib022/nm-demo/tree/main/C.%20Interpolation%20and%20Approximation/Newton%20Backward)
 
 Includes:
 - C++ source code
@@ -3404,7 +3359,7 @@ Result: 12.000
 
 **Implementation**
 
-👉 [View Code & Files](https://github.com/suaib022/nm-demo/tree/main/E.%20Solution%20of%20Differential%20Equations/Newton%20Forward%20Differentiation)
+[View Code & Files](https://github.com/suaib022/nm-demo/tree/main/E.%20Solution%20of%20Differential%20Equations/Newton%20Forward%20Differentiation)
 
 Includes:
 - C++ source code
@@ -3574,7 +3529,7 @@ Value of y at x = 1.500 is 4.095
 
 **Implementation**
 
-👉 [View Code & Files](https://github.com/suaib022/nm-demo/tree/main/E.%20Solution%20of%20Differential%20Equations/Runge%20Kutta)
+[View Code & Files](https://github.com/suaib022/nm-demo/tree/main/E.%20Solution%20of%20Differential%20Equations/Runge%20Kutta)
 
 Includes:
 - C++ source code
@@ -3736,7 +3691,7 @@ Absolute Error:   1.1895e-008
 ---
 **Implementation**
 
-👉 [View Code & Files](https://github.com/suaib022/nm-demo/tree/main/F.%20Numerical%20Integration/Simpson%201%20by%203)
+[View Code & Files](https://github.com/suaib022/nm-demo/tree/main/F.%20Numerical%20Integration/Simpson%201%20by%203)
 
 Includes:
 - C++ source code
@@ -3894,7 +3849,7 @@ Absolute Error:   2.609e-008
 ---
 **Implementation**
 
-👉 [View Code & Files](https://github.com/suaib022/nm-demo/tree/main/F.%20Numerical%20Integration/Simpson%203%20by%208)
+[View Code & Files](https://github.com/suaib022/nm-demo/tree/main/F.%20Numerical%20Integration/Simpson%203%20by%208)
 
 Includes:
 - C++ source code
@@ -4035,7 +3990,7 @@ Linear Fit Equation: y = 0.020 + 2.000x
 ---
 **Implementation**
 
-👉 [View Code & Files](https://github.com/suaib022/nm-demo/tree/main/G.%20Curve%20Fitting/Linear)
+[View Code & Files](https://github.com/suaib022/nm-demo/tree/main/G.%20Curve%20Fitting/Linear)
 
 Includes:
 - C++ source code
@@ -4256,7 +4211,7 @@ Polynomial Fit Equation: y = 1.0000 + 2.0000x^1 + 3.0000x^2
 
 **Implementation**
 
-👉 [View Code & Files](https://github.com/suaib022/nm-demo/tree/main/G.%20Curve%20Fitting/Polynomial)
+[View Code & Files](https://github.com/suaib022/nm-demo/tree/main/G.%20Curve%20Fitting/Polynomial)
 
 Includes:
 - C++ source code
@@ -4398,7 +4353,7 @@ y = 0.9940e^(1.0020x)
 ---
 **Implementation**
 
-👉 [View Code & Files](https://github.com/suaib022/nm-demo/tree/main/G.%20Curve%20Fitting/Transcendental)
+[View Code & Files](https://github.com/suaib022/nm-demo/tree/main/G.%20Curve%20Fitting/Transcendental)
 
 Includes:
 - C++ source code
@@ -4458,7 +4413,7 @@ Focused on the direct linear algebra methods including the Gauss Elimination Met
 
 ---
 
-## 🤝 Future Contribution Guidelines
+## Future Contribution Guidelines
 
 We welcome contributions to improve this project! Whether you want to fix a bug, add a new numerical method, or improve documentation, here is how you can help.
 
@@ -4509,7 +4464,7 @@ We welcome contributions to improve this project! Whether you want to fix a bug,
 
 ---
 
-### 🐛 Reporting Issues
+### Reporting Issues
 Found a bug? Please open an **Issue** with the following details:
 - The method causing the error.
 - Input data used.
