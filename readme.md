@@ -6,8 +6,6 @@
 
 ---
 
----
-
 ## Environment Setup
 
 To run the numerical method implementations in this repository, you will need a standard C++ development environment. All code is written in **Standard C++ (C++11 or later)** to ensure compatibility.
@@ -28,6 +26,10 @@ You can compile and run the programs using any IDE or directly from the terminal
     * **Windows:** `run.exe`
     * **Linux/Mac:** `./run`
 
+**Using VS Code:**
+* Open the folder containing the source code.
+* Ensure the C/C++ extension is installed.
+* Press `Ctrl + Shift + B` (Build) or use the "Run Code" button if you have Code Runner installed.
 ---
 
 ## Table of Contents
