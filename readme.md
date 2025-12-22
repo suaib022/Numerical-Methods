@@ -4601,7 +4601,7 @@ We welcome contributions to improve this project! Whether you want to fix a bug,
     - Tag the maintainers for review.
 
 ### Code Standards
-- **Language:** C++ (Standard 11 or higher) / Python (if applicable).
+- **Language:** C++ (Standard 11 or higher)
 - **Documentation:** Every function must have comments explaining the parameters and return values.
 - **Testing:** Verify that your algorithm works on edge cases (e.g., division by zero checks).
 
