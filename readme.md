@@ -25,11 +25,7 @@ You can compile and run the programs using any IDE or directly from the terminal
 3.  Execute the program:
     * **Windows:** `run.exe`
     * **Linux/Mac:** `./run`
-
-**Using VS Code:**
-* Open the folder containing the source code.
-* Ensure the C/C++ extension is installed.
-* Press `Ctrl + Shift + B` (Build) or use the "Run Code" button if you have Code Runner installed.
+      
 ---
 
 ## Table of Contents
