@@ -1,4 +1,4 @@
-# Numerical Methods Console Application
+# Numerical Methods
 
 ## Welcome to FindX
 
