@@ -4527,26 +4527,6 @@ Includes:
 * [Curve Fitting - Wikipedia](https://en.wikipedia.org/wiki/Curve_fitting)
 * [Exponential Curve Fitting - MathWorld](https://mathworld.wolfram.com/LeastSquaresFittingExponential.html)
 
----
-
-## Sample Run
-
-### Input
-
-```text
-# Give Input in the input file 
-Enter number of equations: 3
-Enter coefficients...
-```
-
-### Output
-
-```text
-Solution:
-x = 1.0
-y = 2.0
-z = 3.0
-```
 
 ---
 
