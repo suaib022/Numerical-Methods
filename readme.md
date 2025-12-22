@@ -4986,6 +4986,6 @@ Found a bug? Please open an **Issue** with the following details:
 1. Chapra, S. C., & Canale, R. P. *Numerical Methods for Engineers*
 2. Burden & Faires, *Numerical Analysis*
 3. NPTEL Lecture Notes on Numerical Methods
-4. *Numerical Methods for Engineers* — Steven Chapra
-5. MIT OpenCourseWare (Numerical Analysis)
-6. NPTEL Numerical Methods
+4. Geeksforgeeks numerical methods
+5. MIT OpenCourseWare (Numerical Analysis Note)
+6. NPTEL Numerical Methods (Online Note)
