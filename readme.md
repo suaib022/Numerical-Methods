@@ -45,6 +45,8 @@ You can compile and run the programs using any IDE or directly from the terminal
     - [Theory](#jacobi-theory) | [Code](#jacobi-code) | [Input](#jacobi-input) | [Output](#jacobi-output)
 5.  [GaussSeidel Method](#gaussseidel)
     - [Theory](#gaussseidel-theory) | [Code](#gaussseidel-code) | [Input](#gaussseidel-input) | [Output](#gaussseidel-output)
+6.  [Matrix Inverse Method](#matrix-inverse)
+    - [Theory](#matrix-inverse-theory) | [Code](#matrix-inverse-code) | [Input](#matrix-inverse-input) | [Output](#matrix-inverse-output)
 
 ### B. Solution of Non-Linear Equations
 1.  [Bisection Method](#bisection)
@@ -1798,6 +1800,375 @@ Includes:
 * [Gauss-Seidel Method - GeeksforGeeks](https://www.geeksforgeeks.org/gauss-seidel-method/)
 * [Iterative Methods: Jacobi vs Gauss-Seidel - Math LibreTexts](https://math.libretexts.org/Bookshelves/Linear_Algebra/Introduction_to_Matrix_Algebra_(Kaw)/01%3A_Chapters/1.08%3A_Gauss-Seidel_Method)
 * Numerical Methods for Engineers - Chapra & Canale
+
+
+
+---
+
+<a id="matrix-inverse"></a>
+### 6. Matrix Inverse Method
+
+<a id="matrix-inverse-theory"></a>
+
+**Theory**
+
+The inverse of a matrix is a fundamental concept in linear algebra. For a square matrix **A**, its inverse **A⁻¹** is defined such that when we multiply them together, we get the identity matrix: $A \times A^{-1} = I$. Not every matrix has an inverse though. A matrix can only be inverted if its determinant is non-zero. When the determinant equals zero, we call it a singular matrix, and no inverse exists.
+
+The approach used here relies on the **adjoint method**. The idea is straightforward: we first compute the determinant of the matrix. If it turns out to be zero, we stop right there since the matrix cannot be inverted. Otherwise, we proceed to calculate the cofactor matrix. Each element of the cofactor matrix is found by removing one row and one column, computing the determinant of what remains, and applying the appropriate sign based on position.
+
+Once we have the cofactor matrix, we transpose it to get the adjoint matrix. The final inverse is simply the adjoint divided by the determinant:
+$$A^{-1} = \frac{1}{\det(A)} \times \text{adj}(A)$$
+
+This method works well for small to medium-sized matrices and gives exact results when working with integer entries.
+
+**Algorithm**
+
+Input:
+    Square matrix A[n][n]
+
+Steps:
+1. Computing the Determinant:
+   Using cofactor expansion along the first row recursively.
+   If |det(A)| < ε (very small), the matrix is singular => No inverse exists.
+
+2. Building the Cofactor Matrix:
+   For each element at position (i, j):
+    a. Form a submatrix by removing row i and column j
+    b. Calculate the determinant of this submatrix
+    c. Apply sign = (-1)^(i+j)
+    d. Cofactor[i][j] = sign × minor determinant
+
+3. Finding the Adjoint:
+   Transpose the cofactor matrix.
+   Adjoint[j][i] = Cofactor[i][j]
+
+4. Computing the Inverse:
+   Divide each element of the adjoint by the determinant.
+   Inverse[i][j] = Adjoint[i][j] / det(A)
+
+**Pseudocode**
+```text
+START
+Input n (size of the matrix)
+Input matrix A[n][n]
+
+# STEP 1: COMPUTE DETERMINANT
+det = determinant(A, n)
+
+IF abs(det) < EPSILON THEN
+    PRINT "Singular Matrix, Inverse does not exist."
+    STOP
+
+# STEP 2: COMPUTE COFACTOR MATRIX
+Create matrix cof[n][n]
+
+FOR i = 0 to n-1:
+    FOR j = 0 to n-1:
+        Create temp matrix excluding row i and column j
+        sign = (-1)^(i+j)
+        cof[i][j] = sign * determinant(temp, n-1)
+
+# STEP 3: COMPUTE ADJOINT MATRIX (TRANSPOSE OF COFACTOR)
+Create matrix adj[n][n]
+
+FOR i = 0 to n-1:
+    FOR j = 0 to n-1:
+        adj[j][i] = cof[i][j]
+
+# STEP 4: COMPUTE INVERSE MATRIX
+Create matrix inv[n][n]
+
+FOR i = 0 to n-1:
+    FOR j = 0 to n-1:
+        inv[i][j] = adj[i][j] / det
+
+PRINT "Inverse Matrix:", inv
+STOP
+
+# HELPER FUNCTION: DETERMINANT (RECURSIVE)
+FUNCTION determinant(A, n):
+    IF n == 1:
+        RETURN A[0][0]
+    
+    det = 0
+    sign = 1
+    
+    FOR f = 0 to n-1:
+        Create temp matrix excluding row 0 and column f
+        det = det + sign * A[0][f] * determinant(temp, n-1)
+        sign = -sign
+    
+    RETURN det
+END FUNCTION
+```
+<a id="matrix-inverse-code"></a>
+
+#### Code
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void getCofactor(const vector<vector<double>> &A, vector<vector<double>> &temp, int p, int q, int n)
+{
+    int i = 0, j = 0;
+    for (int row = 0; row < n; row++)
+    {
+        for (int col = 0; col < n; col++)
+        {
+            if (row != p && col != q)
+            {
+                temp[i][j++] = A[row][col];
+                if (j == n - 1)
+                {
+                    j = 0;
+                    i++;
+                }
+            }
+        }
+    }
+}
+
+double determinant(const vector<vector<double>> &A, int n)
+{
+    if (n == 1)
+        return A[0][0];
+
+    double det = 0;
+    vector<vector<double>> temp(n, vector<double>(n));
+    int sign = 1;
+
+    for (int f = 0; f < n; f++)
+    {
+        getCofactor(A, temp, 0, f, n);
+        det += sign * A[0][f] * determinant(temp, n - 1);
+        sign = -sign;
+    }
+    return det;
+}
+
+void adjoint(const vector<vector<double>> &A, vector<vector<double>> &adj, int n, ofstream &outfile)
+{
+    if (n == 1)
+    {
+        adj[0][0] = 1;
+        outfile << "\nCofactor Matrix:" << endl
+                << fixed << setprecision(0) << 1.0 << endl;
+        outfile << "\nAdjoint Matrix:" << endl
+                << fixed << setprecision(0) << 1.0 << endl;
+        return;
+    }
+
+    int sign = 1;
+    vector<vector<double>> temp(n, vector<double>(n));
+    vector<vector<double>> cof(n, vector<double>(n));
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            getCofactor(A, temp, i, j, n);
+            sign = ((i + j) % 2 == 0) ? 1 : -1;
+            cof[i][j] = (sign) * (determinant(temp, n - 1));
+            adj[j][i] = cof[i][j];
+        }
+    }
+
+    outfile << "\nCofactor Matrix:" << endl;
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+            outfile << fixed << setprecision(0) << cof[i][j] << "\t";
+        outfile << endl;
+    }
+
+    outfile << "\nAdjoint Matrix:" << endl;
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+            outfile << fixed << setprecision(0) << adj[i][j] << "\t";
+        outfile << endl;
+    }
+}
+
+bool inverse(const vector<vector<double>> &A, vector<vector<double>> &inv, int n, ofstream &outfile)
+{
+    double det = determinant(A, n);
+    outfile << "\nDeterminant: " << fixed << setprecision(0) << det << endl;
+
+    if (abs(det) < 1e-9)
+    {
+        return false;
+    }
+
+    vector<vector<double>> adj(n, vector<double>(n));
+    adjoint(A, adj, n, outfile);
+
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            inv[i][j] = adj[i][j] / det;
+
+    return true;
+}
+
+int main()
+{
+    ifstream infile("inputinverse.txt");
+    ofstream outfile("outputinverse.txt");
+
+    if (!infile || !outfile)
+        return 1;
+
+    int n;
+    int caseNum = 1;
+
+    while (infile >> n)
+    {
+        vector<vector<double>> A(n, vector<double>(n));
+        vector<vector<double>> inv(n, vector<double>(n));
+
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                infile >> A[i][j];
+            }
+        }
+
+        outfile << "Case " << caseNum++ << ":" << endl;
+        outfile << "Given Matrix:" << endl;
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                outfile << fixed << setprecision(0) << A[i][j] << "\t";
+            }
+            outfile << endl;
+        }
+
+        if (inverse(A, inv, n, outfile))
+        {
+            outfile << "\nInverse Matrix:" << endl;
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    outfile << fixed << setprecision(6) << inv[i][j] << "\t";
+                }
+                outfile << endl;
+            }
+        }
+        else
+        {
+            outfile << "\nSingular Matrix, Inverse does not exist." << endl;
+        }
+        outfile << endl;
+    }
+
+    infile.close();
+    outfile.close();
+    return 0;
+}
+
+```
+
+<a id="matrix-inverse-input"></a>
+
+#### Input
+```
+3
+3 0 2
+2 0 -2
+0 1 1
+3
+1 2 3
+0 1 4
+5 6 0
+3
+1 2 3
+4 5 6
+7 8 9
+
+```
+
+<a id="matrix-inverse-output"></a>
+
+#### Output
+```
+Case 1:
+Given Matrix:
+3	0	2	
+2	0	-2	
+0	1	1	
+
+Determinant: 10
+
+Cofactor Matrix:
+2	-2	2	
+2	3	-3	
+0	10	0	
+
+Adjoint Matrix:
+2	2	0	
+-2	3	10	
+2	-3	0	
+
+Inverse Matrix:
+0.200000	0.200000	0.000000	
+-0.200000	0.300000	1.000000	
+0.200000	-0.300000	0.000000	
+
+Case 2:
+Given Matrix:
+1	2	3	
+0	1	4	
+5	6	0	
+
+Determinant: 1
+
+Cofactor Matrix:
+-24	20	-5	
+18	-15	4	
+5	-4	1	
+
+Adjoint Matrix:
+-24	18	5	
+20	-15	-4	
+-5	4	1	
+
+Inverse Matrix:
+-24.000000	18.000000	5.000000	
+20.000000	-15.000000	-4.000000	
+-5.000000	4.000000	1.000000	
+
+Case 3:
+Given Matrix:
+1	2	3	
+4	5	6	
+7	8	9	
+
+Determinant: 0
+
+Singular Matrix, Inverse does not exist.
+
+
+```
+
+---
+
+**Folder**
+
+[View Code & Files](https://github.com/suaib022/Numerical-Methods/tree/main/A.%20Solution%20of%20Linear%20Equations/Matrix%20Inverse)
+
+Includes:
+- C++ source code
+- Input file
+- Output file
+
+**Further Study**
+- [Matrix Inverse - Wikipedia](https://en.wikipedia.org/wiki/Invertible_matrix)
+- [Inverse of a Matrix - GeeksforGeeks](https://www.geeksforgeeks.org/inverse-of-a-matrix-using-adjoint/)
+- Numerical Methods for Engineers - Chapra & Canale
 
 
 
