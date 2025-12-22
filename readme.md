@@ -1806,7 +1806,7 @@ Includes:
 ---
 
 <a id="matrix-inverse"></a>
-### 6. Matrix Inverse Method
+### 5. Matrix Inverse Method
 
 <a id="matrix-inverse-theory"></a>
 
@@ -2167,7 +2167,7 @@ Includes:
 
 **Further Study**
 - [Matrix Inverse - Wikipedia](https://en.wikipedia.org/wiki/Invertible_matrix)
-- [Inverse of a Matrix - GeeksforGeeks](https://www.geeksforgeeks.org/inverse-of-a-matrix-using-adjoint/)
+- [Inverse of a Matrix - GeeksforGeeks](https://www.geeksforgeeks.org/maths/inverse-of-matrix/)
 - Numerical Methods for Engineers - Chapra & Canale
 
 
