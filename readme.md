@@ -4538,7 +4538,7 @@ Includes:
 | :--- | :--- | :--- |
 | **MD SUAIB AHMED SAFI** | [@suaib022](https://github.com/suaib022) | 2207115 |
 | **ASHRAFUR RAHMAN NIHAD** | [@ARN101](https://github.com/ARN101) | 2207116 |
-| **DADHICHI SAREKR SHAYON** | [@Dadhichi-Sarker-Shayon](https://github.com/Dadhichi-Sarker-Shayon) | 2207118 |
+| **DADHICHI SARKER SHAYON** | [@Dadhichi-Sarker-Shayon](https://github.com/Dadhichi-Sarker-Shayon) | 2207118 |
 
 ---
 
@@ -4550,7 +4550,7 @@ Responsible for implementing the LU Decomposition Method, Runge–Kutta Method, 
 **ASHRAFUR RAHMAN NIHAD:**
 Developed the code for the Jacobi & Gauss–Seidel Method, Simpson’s 1/3 Rule, and Simpson’s 3/8 Rule. He also contributed the implementations for Newton Forward Differentiation, Polynomial Equation, and Transcendental Equation.
 
-**DADHICHI SAREKR SHAYON:**
+**DADHICHI SARKER SHAYON:**
 Focused on the direct linear algebra methods including the Gauss Elimination Method and Gauss Jordan Method. His contributions also cover root-finding algorithms such as the Bisection Method, False Position Method, Secant Method, and Newton Raphson Method.
 
 
